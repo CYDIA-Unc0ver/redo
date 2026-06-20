@@ -24,6 +24,7 @@ export interface UseFileTreeResult {
 	onNewFileInDir: (dirPath: string) => Promise<string | null>;
 	onNewFolderInDir: (dirPath: string) => Promise<string | null>;
 	onDuplicateFile: (path: string) => Promise<string | null>;
+	onImportFiles: () => Promise<void>;
 	onRenameDir: (
 		path: string,
 		nextName: string,

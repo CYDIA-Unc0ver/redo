@@ -23,7 +23,7 @@ import {
 import { formatShortcutForPlatform } from "../../lib/shortcuts/platform";
 import type { FsEntry } from "../../lib/tauri";
 import { cssEscape } from "../../utils/dom";
-import { ChevronDown, ChevronRight } from "../Icons";
+import { ChevronDown, ChevronRight, FileImport } from "../Icons";
 import { TagsPane } from "../TagsPane";
 import { FileTreePane } from "../filetree";
 import { LicenseStatusFooter } from "../licensing/LicenseStatusFooter";
@@ -36,6 +36,7 @@ interface SidebarContentProps {
 	onSelectDir: (dirPath: string) => void;
 	onOpenFile: (relPath: string) => void;
 	onNewNote: () => void;
+	onImportFiles: () => void;
 	onNewFileInDir: (dirPath: string) => void;
 	onCreateFromTemplateInDir: (dirPath: string) => void;
 	onNewFolderInDir: (dirPath: string) => Promise<string | null>;
@@ -126,6 +127,7 @@ export const SidebarContent = memo(function SidebarContent({
 	onSelectDir,
 	onOpenFile,
 	onNewNote,
+	onImportFiles,
 	onNewFileInDir,
 	onCreateFromTemplateInDir,
 	onNewFolderInDir,
@@ -366,6 +368,17 @@ export const SidebarContent = memo(function SidebarContent({
 			<div className="sidebarSection sidebarSectionGrow">
 				<div className="sidebarSectionContent">
 					<div className="sidebarNavRow">
+						<button
+							type="button"
+							className="sidebarQuickActionBtn sidebarNavBtn"
+							data-kind="import"
+							aria-label="Import"
+							onClick={onImportFiles}
+							title="Import Files"
+						>
+							<FileImport size="var(--icon-md)" />
+							<span className="sidebarQuickActionLabel">Import</span>
+						</button>
 						<button
 							type="button"
 							className="sidebarQuickActionBtn sidebarNavBtn"

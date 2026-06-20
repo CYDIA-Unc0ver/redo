@@ -3,6 +3,7 @@ import {
 	ArrowReloadHorizontalIcon,
 	Close,
 	Delete,
+	FileImportIcon,
 	Save as SaveIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -14,6 +15,13 @@ export const Plus = (props: IconProps) => (
 export const Trash2 = (props: IconProps) => (
 	<HugeiconsIcon
 		icon={Delete}
+		strokeWidth={0.9}
+		{...withDefaultIconSize(props)}
+	/>
+);
+export const FileImport = (props: IconProps) => (
+	<HugeiconsIcon
+		icon={FileImportIcon}
 		strokeWidth={0.9}
 		{...withDefaultIconSize(props)}
 	/>
