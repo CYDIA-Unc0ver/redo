@@ -13,8 +13,6 @@
   <a href="https://discord.gg/fasY8gAQR"><strong>Join us on Discord →</strong></a>
 </p>
 
-Offline-first desktop note-taking application. Tauri 2 shell with a React 19 / TypeScript / Vite 8 frontend and a Rust backend. Data lives entirely on-disk in a per-space `.glyph/` directory backed by SQLite and the local filesystem. No cloud sync, no server.
-
 ![Glyph](imageforWebsite.png)
 
 ## Prerequisites
@@ -81,14 +79,5 @@ pnpm check && pnpm build && cd src-tauri && cargo check
 - Never log secrets, keys, or sensitive user data.
 - ~200 LOC per file guideline; refactor into submodules when exceeded.
 
-## Licensing
-
-Source is open. Official release binaries include a 7-day trial with Gumroad license activation.
-
-- Releases: [GitHub Releases](https://github.com/SidhuK/Glyph/releases)
-- Purchase: [Gumroad](https://karatsidhu.gumroad.com/l/sqxfay)
-- Details: [`docs/licensing.md`](docs/licensing.md)
-
-## Platform support
 
 macOS only. Windows and Linux are not actively supported. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
