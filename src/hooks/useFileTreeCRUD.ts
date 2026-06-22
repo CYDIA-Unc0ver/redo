@@ -657,5 +657,51 @@ export function useFileTreeCRUD(deps: UseFileTreeCRUDDeps) {
 		onRenameDir,
 		onDeletePath,
 		onMovePath,
+		onImportFiles: useCallback(async () => {
+			if (!spacePath) return;
+			setError("");
+			try {
+				const { open } = await import("@tauri-apps/plugin-dialog");
+				const selected = await open({
+					multiple: true,
+					directory: false,
+					title: "Import files into space",
+				});
+
+				if (!selected || selected.length === 0) return;
+
+				const paths = Array.isArray(selected) ? selected : [selected];
+
+				for (const sourceAbs of paths) {
+					const fileName = sourceAbs.split(/[/\\]/).pop() ?? "";
+					if (!fileName) continue;
+
+					// Check if file already exists in root to avoid accidental overwrites
+					// The backend command also checks this but we can provide better UI feedback here if needed.
+					// For now, we'll just let the backend handle the copy and show errors if they occur.
+					try {
+						const entry = await invoke("space_import_file", {
+							source_abs_path: sourceAbs,
+							target_rel_path: fileName,
+						});
+
+						insertEntryOptimistic("", entry);
+						if (entry.is_markdown) {
+							// We don't have the text content here easily without reading it,
+							// but we can just invalidate the prefetch.
+							invalidateAllDocsPrefetch();
+						}
+					} catch (e) {
+						const message = extractErrorMessage(e);
+						toast.error(`Failed to import ${fileName}`, {
+							description: message,
+						});
+					}
+				}
+				await loadDir("", true);
+			} catch (e) {
+				setError(extractErrorMessage(e));
+			}
+		}, [spacePath, setError, insertEntryOptimistic, loadDir]),
 	};
 }

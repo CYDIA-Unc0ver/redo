@@ -234,6 +234,70 @@ pub async fn space_create_dir(
 }
 
 #[tauri::command(rename_all = "snake_case")]
+pub async fn space_import_file(
+    app: tauri::AppHandle,
+    window: WebviewWindow,
+    state: State<'_, SpaceState>,
+    source_abs_path: String,
+    target_rel_path: String,
+) -> Result<FsEntry, String> {
+    let root = state.root_for_window(&window)?;
+    let space_path = root.to_string_lossy().to_string();
+    let window_label = window.label().to_string();
+    let recent_local_changes = state.recent_local_changes_for_window(window.label());
+
+    let entry = tauri::async_runtime::spawn_blocking(move || -> Result<FsEntry, String> {
+        let source_abs = PathBuf::from(&source_abs_path);
+        if !source_abs.exists() {
+            return Err("source file does not exist".to_string());
+        }
+        if !source_abs.is_file() {
+            return Err("source path is not a file".to_string());
+        }
+
+        let target_rel = PathBuf::from(&target_rel_path);
+        deny_hidden_rel_path(&target_rel)?;
+        let target_abs = paths::join_under(&root, &target_rel)?;
+
+        if target_abs.exists() {
+            return Err("destination path already exists".to_string());
+        }
+
+        if let Some(parent) = target_abs.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+        }
+
+        let is_markdown = utils::is_markdown_path(&target_rel);
+        crate::io_atomic::copy_atomic(&source_abs, &target_abs).map_err(|e| e.to_string())?;
+
+        if is_markdown {
+            mark_recent_local_change(&recent_local_changes, &target_rel_path);
+            if let Ok(markdown) = std::fs::read_to_string(&target_abs) {
+                let _ = index::index_note(&root, &target_rel_path, &markdown);
+            }
+        }
+
+        build_file_entry(&target_rel, is_markdown)
+    })
+    .await
+    .map_err(|e| e.to_string())??;
+
+    if entry.is_markdown {
+        let _ = app.emit_to(
+            window_label,
+            "notes:external_changed",
+            NoteChangeEvent {
+                space_path,
+                rel_path: entry.rel_path.clone(),
+                removed: false,
+            },
+        );
+    }
+
+    Ok(entry)
+}
+
+#[tauri::command(rename_all = "snake_case")]
 pub async fn space_duplicate_path(
     app: tauri::AppHandle,
     window: WebviewWindow,

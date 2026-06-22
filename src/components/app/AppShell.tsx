@@ -1226,6 +1226,7 @@ export function AppShell() {
 				onSelectDir={setActiveDirPath}
 				onOpenFile={(p) => void openWorkspaceFile(p)}
 				onNewNote={() => void createNoteInSelectedFolder()}
+				onImportFiles={fileTree.onImportFiles}
 				onNewFileInDir={(p) => void fileTree.onNewFileInDir(p)}
 				onCreateFromTemplateInDir={(p) => void openTemplatePicker(p)}
 				onNewFolderInDir={(p) => fileTree.onNewFolderInDir(p)}

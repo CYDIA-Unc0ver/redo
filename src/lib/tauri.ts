@@ -872,6 +872,10 @@ interface TauriCommands {
 	>;
 	space_create_dir: CommandDef<{ path: string }, void>;
 	space_duplicate_path: CommandDef<{ path: string }, FsEntry>;
+	space_import_file: CommandDef<
+		{ source_abs_path: string; target_rel_path: string },
+		FsEntry
+	>;
 	space_rename_path: CommandDef<
 		{ from_path: string; to_path: string },
 		LinkRewriteResult
