@@ -7,8 +7,8 @@ import {
 	isEditorTextHighlight,
 } from "../textHighlights";
 
-const GLYPH_HIGHLIGHT_BRIDGE_RE =
-	/^\{\{glyph-highlight:([a-z]+)\}\}([\s\S]*?)\{\{\/glyph-highlight\}\}/i;
+const QWERT_HIGHLIGHT_BRIDGE_RE =
+	/^\{\{qwert-highlight:([a-z]+)\}\}([\s\S]*?)\{\{\/qwert-highlight\}\}/i;
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -19,8 +19,8 @@ declare module "@tiptap/core" {
 	}
 }
 
-function parseGlyphHighlightMark(src: string) {
-	const match = src.match(GLYPH_HIGHLIGHT_BRIDGE_RE);
+function parseQWERTHighlightMark(src: string) {
+	const match = src.match(QWERT_HIGHLIGHT_BRIDGE_RE);
 	if (!match) return null;
 	const color = (match[1] ?? "").trim().toLowerCase();
 	if (!isEditorTextHighlight(color)) return null;
@@ -42,13 +42,13 @@ export const HighlightedText = MarkExtension.create({
 				default: null,
 				parseHTML: (element) => {
 					if (!(element instanceof HTMLElement)) return null;
-					return element.getAttribute("data-glyph-highlight")?.trim() ?? null;
+					return element.getAttribute("data-qwert-highlight")?.trim() ?? null;
 				},
 				renderHTML: (attributes) => {
 					const color = attributes.color;
 					if (!color || !isEditorTextHighlight(color)) return {};
 					return {
-						"data-glyph-highlight": color,
+						"data-qwert-highlight": color,
 						style: getEditorTextHighlightStyle(color),
 					};
 				},
@@ -58,11 +58,11 @@ export const HighlightedText = MarkExtension.create({
 	parseHTML() {
 		return [
 			{
-				tag: "mark[data-glyph-highlight]",
+				tag: "mark[data-qwert-highlight]",
 				getAttrs: (element) => {
 					if (!(element instanceof HTMLElement)) return false;
 					const color =
-						element.getAttribute("data-glyph-highlight")?.trim() ?? "";
+						element.getAttribute("data-qwert-highlight")?.trim() ?? "";
 					if (!isEditorTextHighlight(color)) return false;
 					return { color };
 				},
@@ -80,7 +80,7 @@ export const HighlightedText = MarkExtension.create({
 		return `${getEditorTextHighlightBridgeOpenToken(color)}${helpers.renderChildren(node)}${EDITOR_TEXT_HIGHLIGHT_BRIDGE_CLOSE_TOKEN}`;
 	},
 	parseMarkdown(token, helpers) {
-		const parsed = parseGlyphHighlightMark(
+		const parsed = parseQWERTHighlightMark(
 			(token.raw ?? token.text ?? "").toString(),
 		);
 		if (!parsed) {
@@ -96,10 +96,10 @@ export const HighlightedText = MarkExtension.create({
 		name: "highlightedText",
 		level: "inline",
 		start(src: string) {
-			return src.indexOf("{{glyph-highlight:");
+			return src.indexOf("{{qwert-highlight:");
 		},
 		tokenize(src, _tokens, helper) {
-			const match = src.match(GLYPH_HIGHLIGHT_BRIDGE_RE);
+			const match = src.match(QWERT_HIGHLIGHT_BRIDGE_RE);
 			if (!match) return undefined;
 			const color = (match[1] ?? "").trim().toLowerCase();
 			if (!isEditorTextHighlight(color)) return undefined;

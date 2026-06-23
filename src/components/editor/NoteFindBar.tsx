@@ -48,7 +48,7 @@ export function NoteFindBar({
 				aria-label="Previous match"
 				title="Previous match"
 			>
-				<span className="noteFindButtonGlyph" aria-hidden>
+				<span className="noteFindButtonQWERT" aria-hidden>
 					↑
 				</span>
 			</button>
@@ -60,7 +60,7 @@ export function NoteFindBar({
 				aria-label="Next match"
 				title="Next match"
 			>
-				<span className="noteFindButtonGlyph" aria-hidden>
+				<span className="noteFindButtonQWERT" aria-hidden>
 					↓
 				</span>
 			</button>
@@ -71,7 +71,7 @@ export function NoteFindBar({
 				aria-label="Close find"
 				title="Close find"
 			>
-				<span className="noteFindButtonGlyph" aria-hidden>
+				<span className="noteFindButtonQWERT" aria-hidden>
 					×
 				</span>
 			</button>

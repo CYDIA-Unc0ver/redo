@@ -6,7 +6,7 @@ import {
 	invoke,
 } from "./tauri";
 
-const LICENSE_UPDATED_EVENT = "glyph:license-updated";
+const LICENSE_UPDATED_EVENT = "qwert:license-updated";
 
 function dispatchLicenseUpdated(status: LicenseStatus) {
 	window.dispatchEvent(

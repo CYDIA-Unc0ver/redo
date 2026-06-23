@@ -1,12 +1,12 @@
-# Contributing to Glyph
+# Contributing to QWERT
 
-Thanks for your interest in contributing to Glyph.
+Thanks for your interest in contributing to QWERT.
 
-Glyph is an offline-first desktop notes app built with React, TypeScript, Tauri, and Rust. The project is currently maintained with a strong macOS focus.
+QWERT is an offline-first desktop notes app built with React, TypeScript, Tauri, and Rust. The project is currently maintained with a strong macOS focus.
 
 ## Scope and support
 
-- Glyph is currently supported on macOS.
+- QWERT is currently supported on macOS.
 - Windows-specific issues, support requests, and compatibility PRs are not being accepted right now.
 - Linux support is also not an active focus unless explicitly requested by the maintainer.
 - If you want to work on something cross-platform, please open an issue first so we can make sure it fits the roadmap.

@@ -264,7 +264,7 @@ export function SpaceSettingsPane() {
 				>
 					<SettingsRow
 						label="Folder"
-						description="Glyph stores daily notes relative to the active space."
+						description="QWERT stores daily notes relative to the active space."
 						stacked
 						interactive={false}
 					>

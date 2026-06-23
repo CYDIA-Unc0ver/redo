@@ -13,7 +13,7 @@ export const BLOCK_MATH_STARTER = String.raw`\begin{aligned}
   a &= b + c
 \end{aligned}`;
 
-export const GLYPH_KATEX_OPTIONS = {
+export const QWERT_KATEX_OPTIONS = {
 	maxExpand: 1000,
 	maxSize: 20,
 	output: "htmlAndMathml",

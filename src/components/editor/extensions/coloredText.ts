@@ -7,8 +7,8 @@ import {
 	isEditorTextColor,
 } from "../textColors";
 
-const GLYPH_COLOR_BRIDGE_RE =
-	/^\{\{glyph-color:([a-z]+)\}\}([\s\S]*?)\{\{\/glyph-color\}\}/i;
+const QWERT_COLOR_BRIDGE_RE =
+	/^\{\{qwert-color:([a-z]+)\}\}([\s\S]*?)\{\{\/qwert-color\}\}/i;
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
@@ -19,8 +19,8 @@ declare module "@tiptap/core" {
 	}
 }
 
-function parseGlyphColorSpan(src: string) {
-	const match = src.match(GLYPH_COLOR_BRIDGE_RE);
+function parseQWERTColorSpan(src: string) {
+	const match = src.match(QWERT_COLOR_BRIDGE_RE);
 	if (!match) return null;
 	const color = (match[1] ?? "").trim().toLowerCase();
 	if (!isEditorTextColor(color)) return null;
@@ -42,13 +42,13 @@ export const ColoredText = MarkExtension.create({
 				default: null,
 				parseHTML: (element) => {
 					if (!(element instanceof HTMLElement)) return null;
-					return element.getAttribute("data-glyph-color")?.trim() ?? null;
+					return element.getAttribute("data-qwert-color")?.trim() ?? null;
 				},
 				renderHTML: (attributes) => {
 					const color = attributes.color;
 					if (!color || !isEditorTextColor(color)) return {};
 					return {
-						"data-glyph-color": color,
+						"data-qwert-color": color,
 						style: getEditorTextColorStyle(color),
 					};
 				},
@@ -58,10 +58,10 @@ export const ColoredText = MarkExtension.create({
 	parseHTML() {
 		return [
 			{
-				tag: "span[data-glyph-color]",
+				tag: "span[data-qwert-color]",
 				getAttrs: (element) => {
 					if (!(element instanceof HTMLElement)) return false;
-					const color = element.getAttribute("data-glyph-color")?.trim() ?? "";
+					const color = element.getAttribute("data-qwert-color")?.trim() ?? "";
 					if (!isEditorTextColor(color)) return false;
 					return { color };
 				},
@@ -79,7 +79,7 @@ export const ColoredText = MarkExtension.create({
 		return `${getEditorTextColorBridgeOpenToken(color)}${helpers.renderChildren(node)}${EDITOR_TEXT_COLOR_BRIDGE_CLOSE_TOKEN}`;
 	},
 	parseMarkdown(token, helpers) {
-		const parsed = parseGlyphColorSpan(
+		const parsed = parseQWERTColorSpan(
 			(token.raw ?? token.text ?? "").toString(),
 		);
 		if (!parsed) {
@@ -95,10 +95,10 @@ export const ColoredText = MarkExtension.create({
 		name: "coloredText",
 		level: "inline",
 		start(src: string) {
-			return src.indexOf("{{glyph-color:");
+			return src.indexOf("{{qwert-color:");
 		},
 		tokenize(src, _tokens, helper) {
-			const match = src.match(GLYPH_COLOR_BRIDGE_RE);
+			const match = src.match(QWERT_COLOR_BRIDGE_RE);
 			if (!match) return undefined;
 			const color = (match[1] ?? "").trim().toLowerCase();
 			if (!isEditorTextColor(color)) return undefined;

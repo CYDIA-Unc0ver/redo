@@ -179,10 +179,10 @@
 			"commandPalette": true,
 			"menuId": "editor.bullet_list"
 		},
-		"buy-glyph-license": {
-			"id": "buy-glyph-license",
-			"label": "Buy Glyph License",
-			"description": "Open the purchase page for Glyph.",
+		"buy-qwert-license": {
+			"id": "buy-qwert-license",
+			"label": "Buy QWERT License",
+			"description": "Open the purchase page for QWERT.",
 			"category": "settings",
 			"context": "global",
 			"defaultBinding": null,

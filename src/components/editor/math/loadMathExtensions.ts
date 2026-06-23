@@ -12,7 +12,7 @@ export function loadMathExtensionFactory(): Promise<MathExtensionFactory> {
 		import("../extensions/math/markdownMath"),
 		import("katex/dist/katex.min.css"),
 	])
-		.then(([module]) => module.createGlyphMathExtensions)
+		.then(([module]) => module.createQWERTMathExtensions)
 		.catch((error: unknown) => {
 			factoryPromise = null;
 			throw error;

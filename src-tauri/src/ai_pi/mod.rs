@@ -278,7 +278,7 @@ pub async fn list_models(root: &Path) -> Result<Vec<AiModel>, String> {
 
     write_rpc(
         &mut stdin,
-        json!({ "id": "glyph-models", "type": "get_available_models" }),
+        json!({ "id": "qwert-models", "type": "get_available_models" }),
     )
     .await?;
 
@@ -333,7 +333,7 @@ pub async fn list_models(root: &Path) -> Result<Vec<AiModel>, String> {
                     }
                 };
                 if value.get("type").and_then(|v| v.as_str()) != Some("response")
-                    || value.get("id").and_then(|v| v.as_str()) != Some("glyph-models")
+                    || value.get("id").and_then(|v| v.as_str()) != Some("qwert-models")
                 {
                     continue;
                 }
@@ -600,7 +600,7 @@ pub async fn run_with_pi(
     if let Some(child_stdin) = &mut stdin {
         write_rpc(
             child_stdin,
-            json!({ "id": "glyph-prompt", "type": "prompt", "message": prompt }),
+            json!({ "id": "qwert-prompt", "type": "prompt", "message": prompt }),
         )
         .await
         .map_err(|e| {
@@ -692,7 +692,7 @@ pub async fn run_with_pi(
                     }
                 };
                 match value.get("type").and_then(|v| v.as_str()) {
-                    Some("response") if value.get("id").and_then(|v| v.as_str()) == Some("glyph-prompt") => {
+                    Some("response") if value.get("id").and_then(|v| v.as_str()) == Some("qwert-prompt") => {
                         if value.get("success").and_then(|v| v.as_bool()) != Some(true) {
                             abort_and_stop(&mut child, &mut stdin).await;
                             return Err(value.get("error").and_then(|v| v.as_str()).unwrap_or("PI prompt failed").to_string());

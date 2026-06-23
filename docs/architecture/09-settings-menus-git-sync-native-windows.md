@@ -1,6 +1,6 @@
 # Settings, Menus, Git Sync, and Native Windows
 
-Glyph keeps most preferences in a Tauri store, mirrors live changes through events, and pushes native runtime settings through Tauri commands. Git sync and native windows sit beside settings because they depend on both workspace state and desktop integration.
+QWERT keeps most preferences in a Tauri store, mirrors live changes through events, and pushes native runtime settings through Tauri commands. Git sync and native windows sit beside settings because they depend on both workspace state and desktop integration.
 
 ## Main Files
 
@@ -242,7 +242,7 @@ Background run:
 5. Upsert managed `.gitignore`.
 6. Fetch remote.
 7. Stage sync inclusions.
-8. Commit local changes as `Glyph sync`.
+8. Commit local changes as `QWERT sync`.
 9. Merge remote branch if it exists.
 10. Push branch, setting upstream when needed.
 11. Record success and emit status.

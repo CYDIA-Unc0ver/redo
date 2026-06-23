@@ -766,8 +766,8 @@ export function useAppCommands({
 				action: () => setSidebarCollapsed(!sidebarCollapsed),
 			},
 			{
-				id: "buy-glyph-license",
-				label: "Buy Glyph license",
+				id: "buy-qwert-license",
+				label: "Buy QWERT license",
 				icon: (
 					<HugeiconsIcon
 						icon={SquareLock02Icon}

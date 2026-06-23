@@ -177,7 +177,7 @@ export const SidebarSettingsContent = memo(function SidebarSettingsContent() {
 					<div className="settingsFeedbackCard settingsFeedbackCardCommunity">
 						<div className="settingsFeedbackEyebrow">Community Build</div>
 						<div className="settingsFeedbackTitle">
-							Thanks for downloading and building Glyph yourself.
+							Thanks for downloading and building QWERT yourself.
 						</div>
 						<p className="settingsFeedbackBody">
 							Support the project with the official license to get automatic
@@ -199,9 +199,9 @@ export const SidebarSettingsContent = memo(function SidebarSettingsContent() {
 				) : (
 					<div className="settingsFeedbackCard">
 						<div className="settingsFeedbackEyebrow">Still in Early Access</div>
-						<div className="settingsFeedbackTitle">Help shape Glyph</div>
+						<div className="settingsFeedbackTitle">Help shape QWERT</div>
 						<p className="settingsFeedbackBody">
-							Glyph is actively evolving and changing, so you may run into rough
+							QWERT is actively evolving and changing, so you may run into rough
 							edges here and there. If something feels off, I'd really love to
 							hear about it.
 						</p>

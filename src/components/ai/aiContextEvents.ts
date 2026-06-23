@@ -1,4 +1,4 @@
-export const AI_CONTEXT_ATTACH_EVENT = "glyph:ai-context-attach";
+export const AI_CONTEXT_ATTACH_EVENT = "qwert:ai-context-attach";
 
 export interface AiContextAttachDetail {
 	paths: string[];

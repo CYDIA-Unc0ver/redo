@@ -1,1 +1,1 @@
-export const DATABASES_TAB_ID = "__glyph_databases__";
+export const DATABASES_TAB_ID = "__qwert_databases__";

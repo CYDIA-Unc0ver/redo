@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import glyphIconUrl from "../../../src-tauri/icons/icon.png";
+import qwertIconUrl from "../../../src-tauri/icons/icon.png";
 
 interface WelcomeScreenProps {
 	onOpenSpace: () => Promise<void> | void;
@@ -28,12 +28,12 @@ export function WelcomeScreen({ onOpenSpace }: WelcomeScreenProps) {
 			<div className="welcomeScreenBody">
 				<img
 					className="welcomeScreenIcon"
-					src={glyphIconUrl}
+					src={qwertIconUrl}
 					alt=""
 					aria-hidden="true"
 				/>
 				<h1 className="welcomeScreenTitle">
-					Glyph
+					QWERT
 					<span className="welcomeScreenTitleSub">
 						Write. Reflect. Discover.
 					</span>

@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 
-use crate::glyph_paths::ensure_glyph_dir;
+use crate::qwert_paths::ensure_qwert_dir;
 use crate::io_atomic;
 use crate::paths;
 use crate::space_fs::helpers::deny_hidden_rel_path;
@@ -12,7 +12,7 @@ const PINNED_FILES_STORE_FILE: &str = "pinned_files.json";
 const PINNED_FILES_STORE_VERSION: u32 = 1;
 
 fn store_path(space_root: &Path) -> Result<PathBuf, String> {
-    Ok(ensure_glyph_dir(space_root)?.join(PINNED_FILES_STORE_FILE))
+    Ok(ensure_qwert_dir(space_root)?.join(PINNED_FILES_STORE_FILE))
 }
 
 fn default_store() -> PinnedFilesStore {
@@ -135,7 +135,7 @@ mod tests {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     use super::{load_store, rewrite_entry_path, save_store, should_remove_entry, toggle_file};
-    use crate::glyph_paths::ensure_glyph_dir;
+    use crate::qwert_paths::ensure_qwert_dir;
     use crate::paths;
     use crate::pinned_files::types::PinnedFilesStore;
 
@@ -144,7 +144,7 @@ mod tests {
             .duration_since(UNIX_EPOCH)
             .expect("clock before unix epoch")
             .as_nanos();
-        let dir = std::env::temp_dir().join(format!("glyph-pinned-files-{nanos}"));
+        let dir = std::env::temp_dir().join(format!("qwert-pinned-files-{nanos}"));
         fs::create_dir_all(&dir).expect("create temp dir");
         dir
     }
@@ -172,20 +172,20 @@ mod tests {
         let root = unique_temp_dir();
         create_file(&root, "notes/a.md");
         create_file(&root, "notes/b.md");
-        let glyph_dir = ensure_glyph_dir(&root).expect("glyph dir");
+        let qwert_dir = ensure_qwert_dir(&root).expect("qwert dir");
         let store = PinnedFilesStore {
             version: 1,
             files: vec![
                 "".to_string(),
                 "notes/a.md".to_string(),
                 "notes/a.md".to_string(),
-                ".glyph/secret.md".to_string(),
+                ".qwert/secret.md".to_string(),
                 "notes/missing.md".to_string(),
                 "notes/b.md".to_string(),
             ],
         };
         let bytes = serde_json::to_vec_pretty(&store).expect("serialize store");
-        fs::write(glyph_dir.join("pinned_files.json"), bytes).expect("write store");
+        fs::write(qwert_dir.join("pinned_files.json"), bytes).expect("write store");
 
         let (loaded, changed) = load_store(&root).expect("load store");
         assert!(changed);

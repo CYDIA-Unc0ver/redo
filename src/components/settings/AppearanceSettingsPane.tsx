@@ -27,15 +27,15 @@ import {
 } from "../../lib/settings";
 import {
 	DARK_THEME_OPTIONS,
-	GLYPH_DEFAULT_DARK_THEME_ID,
-	GLYPH_DEFAULT_LIGHT_THEME_ID,
+	QWERT_DEFAULT_DARK_THEME_ID,
+	QWERT_DEFAULT_LIGHT_THEME_ID,
 	LIGHT_THEME_OPTIONS,
 	asUiDarkThemeId,
 	asUiLightThemeId,
 	getUiDarkThemeOption,
 	getUiLightThemeOption,
-	isGlyphDefaultDarkTheme,
-	isGlyphDefaultLightTheme,
+	isQWERTDefaultDarkTheme,
+	isQWERTDefaultLightTheme,
 } from "../../lib/uiThemes";
 import { AppearanceAccentCard } from "./AppearanceAccentCard";
 import { AppearanceThemeCard } from "./AppearanceThemeCard";
@@ -50,10 +50,10 @@ export function AppearanceSettingsPane() {
 	const { setTheme } = useTheme();
 	const [themeMode, setThemeModeState] = useState<ThemeMode>("system");
 	const [lightThemeId, setLightThemeIdState] = useState<UiLightThemeId>(
-		GLYPH_DEFAULT_LIGHT_THEME_ID,
+		QWERT_DEFAULT_LIGHT_THEME_ID,
 	);
 	const [darkThemeId, setDarkThemeIdState] = useState<UiDarkThemeId>(
-		GLYPH_DEFAULT_DARK_THEME_ID,
+		QWERT_DEFAULT_DARK_THEME_ID,
 	);
 	const [accent, setAccentState] = useState<UiAccent>("neutral");
 	const [fontFamily, setFontFamilyState] =
@@ -259,13 +259,13 @@ export function AppearanceSettingsPane() {
 	}, []);
 
 	const showAccentCard =
-		isGlyphDefaultLightTheme(lightThemeId) ||
-		isGlyphDefaultDarkTheme(darkThemeId);
+		isQWERTDefaultLightTheme(lightThemeId) ||
+		isQWERTDefaultDarkTheme(darkThemeId);
 	const accentDescription =
-		isGlyphDefaultLightTheme(lightThemeId) &&
-		isGlyphDefaultDarkTheme(darkThemeId)
+		isQWERTDefaultLightTheme(lightThemeId) &&
+		isQWERTDefaultDarkTheme(darkThemeId)
 			? "Choose the accent used for highlights, focus rings, and emphasis in the default light and dark themes."
-			: isGlyphDefaultLightTheme(lightThemeId)
+			: isQWERTDefaultLightTheme(lightThemeId)
 				? "Choose the accent used for highlights, focus rings, and emphasis in the default light theme."
 				: "Choose the accent used for highlights, focus rings, and emphasis in the default dark theme.";
 	const lightTheme = getUiLightThemeOption(lightThemeId);

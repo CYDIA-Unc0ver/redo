@@ -27,7 +27,7 @@ describe("HighlightedText markdown integration", () => {
 	it("round-trips highlighted marks through markdown parse and serialize", () => {
 		const manager = createMarkdownManager();
 		const input =
-			'Hello <mark data-glyph-highlight="yellow" style="background-color: var(--glyph-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">world</mark>';
+			'Hello <mark data-qwert-highlight="yellow" style="background-color: var(--qwert-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">world</mark>';
 
 		const json = manager.parse(preprocessMarkdownForEditor(input));
 		const paragraph = json.content?.[0];
@@ -45,7 +45,7 @@ describe("HighlightedText markdown integration", () => {
 	it("supports nested text color inside a highlighted mark", () => {
 		const manager = createMarkdownManager();
 		const input =
-			'Before <mark data-glyph-highlight="blue" style="background-color: var(--glyph-inline-highlight-blue, rgba(59, 155, 220, 0.22))"><span data-glyph-color="red" style="color: var(--glyph-inline-color-red)">alert</span></mark> after';
+			'Before <mark data-qwert-highlight="blue" style="background-color: var(--qwert-inline-highlight-blue, rgba(59, 155, 220, 0.22))"><span data-qwert-color="red" style="color: var(--qwert-inline-color-red)">alert</span></mark> after';
 
 		const json = manager.parse(preprocessMarkdownForEditor(input));
 		const output = postprocessMarkdownFromEditor(manager.serialize(json));
@@ -53,10 +53,10 @@ describe("HighlightedText markdown integration", () => {
 		expect(output).toBe(input);
 	});
 
-	it("ignores unsupported glyph highlight ids", () => {
+	it("ignores unsupported qwert highlight ids", () => {
 		const manager = createMarkdownManager();
 		const input =
-			'Before <mark data-glyph-highlight="pink" style="background-color: pink">text</mark> after';
+			'Before <mark data-qwert-highlight="pink" style="background-color: pink">text</mark> after';
 
 		const json = manager.parse(preprocessMarkdownForEditor(input));
 		const paragraph = json.content?.[0];
@@ -85,7 +85,7 @@ describe("HighlightedText markdown integration", () => {
 			.insertContent("done")
 			.run();
 		expect(postprocessMarkdownFromEditor(editor.getMarkdown())).toBe(
-			'<mark data-glyph-highlight="green" style="background-color: var(--glyph-inline-highlight-green, rgba(60, 207, 142, 0.24))">done</mark>',
+			'<mark data-qwert-highlight="green" style="background-color: var(--qwert-inline-highlight-green, rgba(60, 207, 142, 0.24))">done</mark>',
 		);
 
 		editor.commands.selectAll();
@@ -107,7 +107,7 @@ describe("HighlightedText markdown integration", () => {
 				enableMarkdownLinkAutocomplete: false,
 			}),
 			content:
-				'<mark data-glyph-highlight="yellow" style="background-color: var(--glyph-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">done</mark>',
+				'<mark data-qwert-highlight="yellow" style="background-color: var(--qwert-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">done</mark>',
 			contentType: "markdown",
 			element: document.createElement("div"),
 		});
@@ -116,7 +116,7 @@ describe("HighlightedText markdown integration", () => {
 		editor.chain().focus().setTextHighlight("red").run();
 
 		expect(postprocessMarkdownFromEditor(editor.getMarkdown())).toBe(
-			'<mark data-glyph-highlight="red" style="background-color: var(--glyph-inline-highlight-red, rgba(249, 112, 102, 0.2))">done</mark>',
+			'<mark data-qwert-highlight="red" style="background-color: var(--qwert-inline-highlight-red, rgba(249, 112, 102, 0.2))">done</mark>',
 		);
 
 		editor.destroy();

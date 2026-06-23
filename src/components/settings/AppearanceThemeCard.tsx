@@ -43,7 +43,7 @@ function resolvePreview<T extends string>(
 	mode: "light" | "dark",
 	accent: UiAccent,
 ): UiThemePreview {
-	if (option.id === "glyph-default" || option.id === "glyph-default-dark") {
+	if (option.id === "qwert-default" || option.id === "qwert-default-dark") {
 		const accentColor = getAccentPreviewColor(accent, mode);
 		return {
 			...option.preview,
@@ -151,8 +151,8 @@ function ThemeSelector<T extends string>({
 						<div className="appearanceThemeDropdownHeaderTitle">{label}</div>
 						<div className="appearanceThemeDropdownHeaderHint">
 							{mode === "light"
-								? "Pick the palette Glyph uses in light mode."
-								: "Pick the palette Glyph uses in dark mode."}
+								? "Pick the palette QWERT uses in light mode."
+								: "Pick the palette QWERT uses in dark mode."}
 						</div>
 					</div>
 					<div className="appearanceThemeDropdownList">

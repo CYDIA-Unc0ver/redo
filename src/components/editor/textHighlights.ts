@@ -13,7 +13,7 @@ export const EDITOR_TEXT_HIGHLIGHTS = [
 	{
 		id: "yellow",
 		label: "Yellow",
-		backgroundCssVar: "--glyph-inline-highlight-yellow",
+		backgroundCssVar: "--qwert-inline-highlight-yellow",
 		backgroundFallback: "rgba(240, 180, 41, 0.26)",
 		swatchCssVar: "--status-warning-fg",
 		swatchFallback: "#f0b429",
@@ -21,7 +21,7 @@ export const EDITOR_TEXT_HIGHLIGHTS = [
 	{
 		id: "blue",
 		label: "Blue",
-		backgroundCssVar: "--glyph-inline-highlight-blue",
+		backgroundCssVar: "--qwert-inline-highlight-blue",
 		backgroundFallback: "rgba(59, 155, 220, 0.22)",
 		swatchCssVar: "--status-info-fg",
 		swatchFallback: "#3b9bdc",
@@ -29,7 +29,7 @@ export const EDITOR_TEXT_HIGHLIGHTS = [
 	{
 		id: "green",
 		label: "Green",
-		backgroundCssVar: "--glyph-inline-highlight-green",
+		backgroundCssVar: "--qwert-inline-highlight-green",
 		backgroundFallback: "rgba(60, 207, 142, 0.24)",
 		swatchCssVar: "--status-success-fg",
 		swatchFallback: "#3ccf8e",
@@ -37,7 +37,7 @@ export const EDITOR_TEXT_HIGHLIGHTS = [
 	{
 		id: "red",
 		label: "Red",
-		backgroundCssVar: "--glyph-inline-highlight-red",
+		backgroundCssVar: "--qwert-inline-highlight-red",
 		backgroundFallback: "rgba(249, 112, 102, 0.2)",
 		swatchCssVar: "--status-danger-fg",
 		swatchFallback: "#f97066",
@@ -69,13 +69,13 @@ export function getEditorTextHighlightStyle(highlight: EditorTextHighlight) {
 export function getEditorTextHighlightMarkdownOpenTag(
 	highlight: EditorTextHighlight,
 ) {
-	return `<mark data-glyph-highlight="${highlight}" style="${getEditorTextHighlightStyle(highlight)}">`;
+	return `<mark data-qwert-highlight="${highlight}" style="${getEditorTextHighlightStyle(highlight)}">`;
 }
 
 export function getEditorTextHighlightBridgeOpenToken(
 	highlight: EditorTextHighlight,
 ) {
-	return `{{glyph-highlight:${highlight}}}`;
+	return `{{qwert-highlight:${highlight}}}`;
 }
 
-export const EDITOR_TEXT_HIGHLIGHT_BRIDGE_CLOSE_TOKEN = "{{/glyph-highlight}}";
+export const EDITOR_TEXT_HIGHLIGHT_BRIDGE_CLOSE_TOKEN = "{{/qwert-highlight}}";

@@ -29,25 +29,25 @@ export const MarkdownImage = Image.extend({
 			originSrc: {
 				default: null,
 				parseHTML: (element) =>
-					element.getAttribute("data-glyph-origin-src") ??
+					element.getAttribute("data-qwert-origin-src") ??
 					element.getAttribute("src"),
 				renderHTML: (attributes) => {
 					const originSrc =
 						typeof attributes.originSrc === "string"
 							? attributes.originSrc.trim()
 							: "";
-					return originSrc ? { "data-glyph-origin-src": originSrc } : {};
+					return originSrc ? { "data-qwert-origin-src": originSrc } : {};
 				},
 			},
 			uploadId: {
 				default: null,
-				parseHTML: (element) => element.getAttribute("data-glyph-upload-id"),
+				parseHTML: (element) => element.getAttribute("data-qwert-upload-id"),
 				renderHTML: (attributes) => {
 					const uploadId =
 						typeof attributes.uploadId === "string"
 							? attributes.uploadId.trim()
 							: "";
-					return uploadId ? { "data-glyph-upload-id": uploadId } : {};
+					return uploadId ? { "data-qwert-upload-id": uploadId } : {};
 				},
 			},
 		};

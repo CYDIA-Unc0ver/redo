@@ -153,14 +153,14 @@ const ATTACHMENT_STORAGE_MODES = new Set<AttachmentStorageMode>([
 ]);
 export type UiAccent =
 	| "neutral"
-	| "glyph-orange"
-	| "glyph-red"
+	| "qwert-orange"
+	| "qwert-red"
 	| "cerulean"
 	| "tropical-teal";
 const UI_ACCENTS = new Set<UiAccent>([
 	"neutral",
-	"glyph-orange",
-	"glyph-red",
+	"qwert-orange",
+	"qwert-red",
 	"cerulean",
 	"tropical-teal",
 ]);
@@ -477,7 +477,7 @@ async function withSpaceScopedSettingsWriteLock<T>(
 			? navigator.locks
 			: null;
 	if (locks) {
-		return locks.request("glyph-space-scoped-settings", operation);
+		return locks.request("qwert-space-scoped-settings", operation);
 	}
 	const run = spaceScopedSettingsWriteQueue.then(operation, operation);
 	spaceScopedSettingsWriteQueue = run.catch(() => {});

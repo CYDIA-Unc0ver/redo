@@ -160,7 +160,7 @@ export function LicenseSettingsCard() {
 			{status?.mode === "community_build" ? (
 				<SettingsRow
 					label="Official build"
-					description="Thanks for downloading and building Glyph yourself. Community builds do not include automatic updates. To get the latest version, download the source again and rebuild, or get the official licensed build to support Glyph and unlock automatic updates."
+					description="Thanks for downloading and building QWERT yourself. Community builds do not include automatic updates. To get the latest version, download the source again and rebuild, or get the official licensed build to support QWERT and unlock automatic updates."
 					stacked
 					interactive={false}
 				>
@@ -178,9 +178,9 @@ export function LicenseSettingsCard() {
 
 			{status?.is_official_build ? (
 				<SettingsRow
-					label="Activate Glyph"
+					label="Activate QWERT"
 					htmlFor="settings-license-key"
-					description="Enter your license key to unlock Glyph permanently on this device."
+					description="Enter your license key to unlock QWERT permanently on this device."
 					stacked
 					className="licenseSettingsField"
 				>

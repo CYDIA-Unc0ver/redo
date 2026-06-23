@@ -7,8 +7,8 @@ use std::time::{Duration, Instant};
 use super::types::{AttachmentStorageMode, GitSyncContext, GitSyncInclusionSettings};
 use crate::io_atomic;
 
-const GLYPH_GITIGNORE_START: &str = "# >>> Glyph Git Sync >>>";
-const GLYPH_GITIGNORE_END: &str = "# <<< Glyph Git Sync <<<";
+const QWERT_GITIGNORE_START: &str = "# >>> QWERT Git Sync >>>";
+const QWERT_GITIGNORE_END: &str = "# <<< QWERT Git Sync <<<";
 const GIT_COMMAND_TIMEOUT: Duration = Duration::from_secs(30);
 
 /// Maximum number of commits returned by `file_history`. Shared so callers that
@@ -395,7 +395,7 @@ pub fn render_managed_gitignore(
     inclusions: &GitSyncInclusionSettings,
     context: &GitSyncContext,
 ) -> String {
-    let mut lines = vec![GLYPH_GITIGNORE_START.to_string(), ".glyph/".to_string()];
+    let mut lines = vec![QWERT_GITIGNORE_START.to_string(), ".qwert/".to_string()];
 
     if !inclusions.include_non_markdown_files {
         lines.extend([
@@ -437,7 +437,7 @@ pub fn render_managed_gitignore(
         }
     }
 
-    lines.push(GLYPH_GITIGNORE_END.to_string());
+    lines.push(QWERT_GITIGNORE_END.to_string());
     lines.join("\n")
 }
 
@@ -454,11 +454,11 @@ pub fn upsert_managed_gitignore(
         Err(error) => return Err(error.to_string()),
     };
     let next = if let (Some(start), Some(end)) = (
-        existing.find(GLYPH_GITIGNORE_START),
-        existing.find(GLYPH_GITIGNORE_END),
+        existing.find(QWERT_GITIGNORE_START),
+        existing.find(QWERT_GITIGNORE_END),
     ) {
         let before = existing[..start].trim_end();
-        let after = existing[end + GLYPH_GITIGNORE_END.len()..].trim_start();
+        let after = existing[end + QWERT_GITIGNORE_END.len()..].trim_start();
         match (before.is_empty(), after.is_empty()) {
             (true, true) => format!("{block}\n"),
             (true, false) => format!("{block}\n\n{after}\n"),
@@ -528,7 +528,7 @@ mod tests {
                 attachment_folder: Some("assets/images".to_string()),
             },
         );
-        assert!(block.contains(".glyph/"));
+        assert!(block.contains(".qwert/"));
         assert!(block.contains("!*.md"));
         assert!(block.contains("assets/images/"));
     }
@@ -577,7 +577,7 @@ mod tests {
             return;
         }
         let root =
-            std::env::temp_dir().join(format!("glyph-git-sync-inspect-{}", uuid::Uuid::new_v4()));
+            std::env::temp_dir().join(format!("qwert-git-sync-inspect-{}", uuid::Uuid::new_v4()));
         let child = root.join("child");
         std::fs::create_dir_all(&child).expect("create child");
         super::run_git(&root, &["init"]).expect("init repo");

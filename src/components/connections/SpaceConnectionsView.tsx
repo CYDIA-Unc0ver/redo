@@ -22,7 +22,7 @@ const MAX_SPACE_CONNECTIONS_TAGS = 250;
 const LARGE_CONNECTIONS_LAYOUT_THRESHOLD = 2400;
 const SATELLITE_GAP = 130;
 const SATELLITE_SPACING = 44;
-const CONNECTIONS_LAYOUT_CACHE_PREFIX = "glyph.spaceConnections.layout:";
+const CONNECTIONS_LAYOUT_CACHE_PREFIX = "qwert.spaceConnections.layout:";
 const CONNECTIONS_LAYOUT_CACHE_VERSION = 1;
 const CONNECTIONS_LAYOUT_ALGORITHM = "organic-cloud-v2";
 const MIN_NOTE_NODE_SIZE = 10;
@@ -502,7 +502,7 @@ export function SpaceConnectionsView() {
 		const { confirm } = await import("@tauri-apps/plugin-dialog");
 		const noteCountLabel = fullConnectionsNoteCountLabel(graph.total_notes);
 		const confirmed = await confirm(
-			`This will render ${noteCountLabel} at once. Large connection maps can use a lot of memory and may make Glyph slow or temporarily unresponsive.`,
+			`This will render ${noteCountLabel} at once. Large connection maps can use a lot of memory and may make QWERT slow or temporarily unresponsive.`,
 			{
 				title: "Load all connections?",
 				okLabel: "Load all connections",

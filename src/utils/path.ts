@@ -24,7 +24,8 @@ export function splitEditableFileName(name: string): {
 }
 
 export function isMarkdownPath(relPath: string): boolean {
-	return relPath.toLowerCase().endsWith(".md");
+	const lower = relPath.toLowerCase();
+	return lower.endsWith(".md") || lower.endsWith(".docx");
 }
 
 export function normalizeRelPath(path: string): string {

@@ -23,7 +23,7 @@ export function AiApiKeySection({
 	return (
 		<SettingsSection
 			title="API Key"
-			description="Stored locally in the secure secret store used by Glyph."
+			description="Stored locally in the secure secret store used by QWERT."
 			aside={
 				<div
 					className={`settingsPill ${toneForSecretConfigured(secretConfigured)}`}

@@ -29,7 +29,7 @@ pnpm tauri dev      # Full Tauri app in dev mode
 
 ## Architecture
 
-**Glyph** — offline-first desktop note-taking app. Frontend: React 19 + TypeScript + Vite + Tailwind 4 (`src/`). Backend: Tauri 2 + Rust (`src-tauri/`). Editor: TipTap + Markdown. AI: Rig-backed multi-provider chat plus Codex/ChatGPT account integration. UI: shadcn/ui + Radix + Motion. Storage: SQLite + filesystem in `.glyph/` folder.
+**QWERT** — offline-first desktop note-taking app. Frontend: React 19 + TypeScript + Vite + Tailwind 4 (`src/`). Backend: Tauri 2 + Rust (`src-tauri/`). Editor: TipTap + Markdown. AI: Rig-backed multi-provider chat plus Codex/ChatGPT account integration. UI: shadcn/ui + Radix + Motion. Storage: SQLite + filesystem in `.qwert/` folder.
 
 Repo extras: internal product and engineering docs live in `docs/`.
 
@@ -68,7 +68,7 @@ Repo extras: internal product and engineering docs live in `docs/`.
 - `paths.rs` — Safe path joining (prevents traversal via `join_under()`)
 - `io_atomic.rs` — Crash-safe atomic writes
 - `net.rs` — SSRF prevention for user-supplied URLs
-- `glyph_paths.rs` / `glyph_fs.rs` — `.glyph/` directory helpers
+- `qwert_paths.rs` / `qwert_fs.rs` — `.qwert/` directory helpers
 - `system_fonts.rs` — System font enumeration
 
 ## Code Style & Safety

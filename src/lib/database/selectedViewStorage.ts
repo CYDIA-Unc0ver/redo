@@ -1,6 +1,6 @@
 const DATABASES_SELECTED_DATABASE_STORAGE_KEY =
-	"glyph.databases.selectedDatabaseId";
-const DATABASES_SELECTED_VIEWS_STORAGE_KEY = "glyph.databases.selectedViews";
+	"qwert.databases.selectedDatabaseId";
+const DATABASES_SELECTED_VIEWS_STORAGE_KEY = "qwert.databases.selectedViews";
 
 function readStorage(key: string): string | null {
 	if (typeof window === "undefined") return null;

@@ -10,7 +10,7 @@ import {
 	PopoverTrigger,
 } from "../../ui/shadcn/popover";
 import type { MathEditRequest } from "../extensions/math/mathOptions";
-import { GLYPH_KATEX_OPTIONS } from "../extensions/math/mathOptions";
+import { QWERT_KATEX_OPTIONS } from "../extensions/math/mathOptions";
 import { LatexSourceEditor } from "./LatexSourceEditor";
 
 interface MathNodeEditorProps {
@@ -47,7 +47,7 @@ export function MathNodeEditor({
 		const frame = window.requestAnimationFrame(() => {
 			try {
 				katex.render(draft || "\\;", preview, {
-					...GLYPH_KATEX_OPTIONS,
+					...QWERT_KATEX_OPTIONS,
 					displayMode: request.kind === "block",
 					throwOnError: true,
 				});

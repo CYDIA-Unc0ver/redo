@@ -102,7 +102,7 @@ async fn start_server_on_port(root: &Path, binary: &Path) -> Result<OpenCodeServ
     let base_url = format!("http://127.0.0.1:{port}");
     let client = Client::builder()
         .timeout(CONTROL_REQUEST_TIMEOUT)
-        .user_agent("Glyph/0.1 (opencode)")
+        .user_agent("QWERT/0.1 (opencode)")
         .build()
         .map_err(|e| e.to_string())?;
     let mut child = Command::new(binary)
@@ -305,7 +305,7 @@ fn parse_provider_models(value: &Value, connected_only: bool) -> Vec<AiModel> {
                 .and_then(|v| v.as_str())
                 .unwrap_or(model_key.as_str());
             let provider_prefix = format!("{model_provider_id}/");
-            let glyph_id = if model_id.starts_with(&provider_prefix) {
+            let qwert_id = if model_id.starts_with(&provider_prefix) {
                 model_id.to_string()
             } else {
                 format!("{model_provider_id}/{model_id}")
@@ -317,13 +317,13 @@ fn parse_provider_models(value: &Value, connected_only: bool) -> Vec<AiModel> {
             let capabilities = model.get("capabilities").unwrap_or(&Value::Null);
             let limit = model.get("limit").unwrap_or(&Value::Null);
             let cost = model.get("cost").unwrap_or(&Value::Null);
-            let is_default = defaults.contains(&glyph_id)
+            let is_default = defaults.contains(&qwert_id)
                 || defaults.contains(model_id)
                 || connected.contains(model_provider_id);
             entries.push((
                 is_default,
                 AiModel {
-                    id: glyph_id,
+                    id: qwert_id,
                     name: format!("{provider_name}: {model_name}"),
                     context_length: value_as_u32(limit.get("context")),
                     description: model_description(&provider, &model),

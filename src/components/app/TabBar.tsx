@@ -292,7 +292,7 @@ const TabItem = memo(function TabItem({
 				onClick={handleClose}
 				aria-label={`Close ${label}`}
 			>
-				<span className="mainTabCloseGlyph" aria-hidden>
+				<span className="mainTabCloseQWERT" aria-hidden>
 					×
 				</span>
 			</button>

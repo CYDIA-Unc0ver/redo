@@ -18,7 +18,7 @@ export interface UiThemeOption<T extends string> {
 
 export const LIGHT_THEME_OPTIONS = [
 	{
-		id: "glyph-default",
+		id: "qwert-default",
 		label: "Default",
 		description: "Clean white surfaces with soft gray chrome.",
 		preview: {
@@ -231,7 +231,7 @@ export const LIGHT_THEME_OPTIONS = [
 
 export const DARK_THEME_OPTIONS = [
 	{
-		id: "glyph-default-dark",
+		id: "qwert-default-dark",
 		label: "Default",
 		description: "Warm charcoal surfaces with soft off-white text.",
 		preview: {
@@ -460,8 +460,8 @@ export const DARK_THEME_OPTIONS = [
 export type UiLightThemeId = (typeof LIGHT_THEME_OPTIONS)[number]["id"];
 export type UiDarkThemeId = (typeof DARK_THEME_OPTIONS)[number]["id"];
 
-export const GLYPH_DEFAULT_LIGHT_THEME_ID: UiLightThemeId = "glyph-default";
-export const GLYPH_DEFAULT_DARK_THEME_ID: UiDarkThemeId = "glyph-default-dark";
+export const QWERT_DEFAULT_LIGHT_THEME_ID: UiLightThemeId = "qwert-default";
+export const QWERT_DEFAULT_DARK_THEME_ID: UiDarkThemeId = "qwert-default-dark";
 
 const LIGHT_THEME_IDS = new Set<UiLightThemeId>(
 	LIGHT_THEME_OPTIONS.map((option) => option.id),
@@ -482,13 +482,13 @@ export function asUiLightThemeId(value: unknown): UiLightThemeId {
 	return typeof value === "string" &&
 		LIGHT_THEME_IDS.has(value as UiLightThemeId)
 		? (value as UiLightThemeId)
-		: GLYPH_DEFAULT_LIGHT_THEME_ID;
+		: QWERT_DEFAULT_LIGHT_THEME_ID;
 }
 
 export function asUiDarkThemeId(value: unknown): UiDarkThemeId {
 	return typeof value === "string" && DARK_THEME_IDS.has(value as UiDarkThemeId)
 		? (value as UiDarkThemeId)
-		: GLYPH_DEFAULT_DARK_THEME_ID;
+		: QWERT_DEFAULT_DARK_THEME_ID;
 }
 
 export function getUiLightThemeOption(
@@ -515,10 +515,10 @@ export function isUiDarkThemeId(value: unknown): value is UiDarkThemeId {
 	);
 }
 
-export function isGlyphDefaultLightTheme(themeId: UiLightThemeId): boolean {
-	return themeId === GLYPH_DEFAULT_LIGHT_THEME_ID;
+export function isQWERTDefaultLightTheme(themeId: UiLightThemeId): boolean {
+	return themeId === QWERT_DEFAULT_LIGHT_THEME_ID;
 }
 
-export function isGlyphDefaultDarkTheme(themeId: UiDarkThemeId): boolean {
-	return themeId === GLYPH_DEFAULT_DARK_THEME_ID;
+export function isQWERTDefaultDarkTheme(themeId: UiDarkThemeId): boolean {
+	return themeId === QWERT_DEFAULT_DARK_THEME_ID;
 }

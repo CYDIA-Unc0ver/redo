@@ -1,6 +1,7 @@
 import {
 	AiBrain04Icon,
 	LayoutAlignRightIcon,
+	Link02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Editor } from "@tiptap/react";
@@ -18,6 +19,7 @@ import {
 	TOGGLE_NOTE_INFO_SIDEBAR_EVENT,
 	type ToggleNoteInfoSidebarDetail,
 } from "../../lib/appEvents";
+import { readDocxAsMarkdown } from "../../lib/docx";
 import { extractErrorMessage } from "../../lib/errorUtils";
 import { canShowGitHistory } from "../../lib/gitSyncUi";
 import { setPrefetchedNote } from "../../lib/navigationPrefetch";
@@ -172,13 +174,14 @@ export function MarkdownEditorPane({
 	initialError = "",
 	extractToNoteActions,
 }: MarkdownEditorPaneProps) {
+	const isDocx = relPath.toLowerCase().endsWith(".docx");
 	const initialText = initialDoc?.text ?? peekCachedMarkdownDoc(relPath) ?? "";
 	const [text, setText] = useState(() => initialText);
 	const [infoPanelText, setInfoPanelText] = useState("");
 	const [savedText, setSavedText] = useState(() => initialText);
 	const preferredEditorModeRef = useRef<NoteInlineEditorMode | null>(null);
 	const [mode, setMode] = useState<NoteInlineEditorMode>(() =>
-		initialEditorMode(initialText),
+		isDocx ? "preview" : initialEditorMode(initialText),
 	);
 	const [saving, setSaving] = useState(false);
 	const [autosaveBusy, setAutosaveBusy] = useState(false);
@@ -196,17 +199,23 @@ export function MarkdownEditorPane({
 	const textRef = useRef(text);
 	const resolveEditorModeForNote = useCallback(
 		(markdown: string): NoteInlineEditorMode => {
+			if (isDocx) return "preview";
 			if (requiresPlainEditorMode(markdown)) return "plain";
 			return preferredEditorModeRef.current ?? initialEditorMode(markdown);
 		},
-		[],
+		[isDocx],
 	);
-	const applyEditorMode = useCallback((nextMode: NoteInlineEditorMode) => {
-		preferredEditorModeRef.current = nextMode;
-		setMode(nextMode);
-	}, []);
+	const applyEditorMode = useCallback(
+		(nextMode: NoteInlineEditorMode) => {
+			if (isDocx && nextMode !== "preview") return;
+			preferredEditorModeRef.current = nextMode;
+			setMode(nextMode);
+		},
+		[isDocx],
+	);
 	const requestEditorMode = useCallback(
 		async (nextMode: NoteInlineEditorMode) => {
+			if (isDocx) return;
 			if (nextMode !== "plain" && requiresPlainEditorMode(textRef.current)) {
 				const modeLabel = nextMode === "rich" ? "Rich" : "Preview";
 				const { confirm } = await import("@tauri-apps/plugin-dialog");
@@ -222,7 +231,7 @@ export function MarkdownEditorPane({
 			}
 			applyEditorMode(nextMode);
 		},
-		[applyEditorMode],
+		[applyEditorMode, isDocx],
 	);
 	const mtimeRef = useRef<number | null>(lastSavedMtimeMs);
 	const documentSessionRef = useRef(0);
@@ -353,6 +362,7 @@ export function MarkdownEditorPane({
 	}, []);
 
 	const saveLabel = useMemo(() => {
+		if (isDocx) return "Read Only";
 		if (saving || autosaveBusy) {
 			return "Saving";
 		}
@@ -366,7 +376,7 @@ export function MarkdownEditorPane({
 			return "Saved";
 		}
 		return lastSavedMtimeMs ? "Saved" : "Ready";
-	}, [autosaveBusy, isDirty, lastSavedMtimeMs, saving, syncPulse]);
+	}, [autosaveBusy, isDirty, lastSavedMtimeMs, saving, syncPulse, isDocx]);
 
 	useEffect(() => {
 		mountedRef.current = true;
@@ -472,7 +482,18 @@ export function MarkdownEditorPane({
 			const sessionId = documentSessionRef.current;
 			setError("");
 			try {
-				const doc = await invoke("space_read_text", { path: relPath });
+				let doc: TextFileDoc;
+				if (relPath.toLowerCase().endsWith(".docx")) {
+					const markdown = await readDocxAsMarkdown(relPath);
+					doc = {
+						rel_path: relPath,
+						text: markdown,
+						etag: "",
+						mtime_ms: Date.now(), // approximation for converted doc
+					};
+				} else {
+					doc = await invoke("space_read_text", { path: relPath });
+				}
 				if (!isCurrentSession(sessionId)) return;
 				const shouldReplaceText = textRef.current === savedTextRef.current;
 				const shouldChooseInitialMode =
@@ -507,7 +528,18 @@ export function MarkdownEditorPane({
 		const sessionId = documentSessionRef.current;
 		setError("");
 		try {
-			const doc = await invoke("space_read_text", { path: relPath });
+			let doc: TextFileDoc;
+			if (relPath.toLowerCase().endsWith(".docx")) {
+				const markdown = await readDocxAsMarkdown(relPath);
+				doc = {
+					rel_path: relPath,
+					text: markdown,
+					etag: "",
+					mtime_ms: Date.now(),
+				};
+			} else {
+				doc = await invoke("space_read_text", { path: relPath });
+			}
 			if (!isCurrentSession(sessionId)) return;
 			if (
 				doc.mtime_ms === mtimeRef.current &&
@@ -540,6 +572,7 @@ export function MarkdownEditorPane({
 			nextText: string,
 			sessionId = documentSessionRef.current,
 		): Promise<boolean> => {
+			if (path.toLowerCase().endsWith(".docx")) return true; // read-only
 			const applySaveState = (saved: string, mtimeMs: number) => {
 				if (path !== relPath || !isCurrentSession(sessionId)) return;
 				setPrefetchedNote(path, {
@@ -578,7 +611,18 @@ export function MarkdownEditorPane({
 
 				// Conflict recovery: refresh latest mtime/content and retry save once.
 				try {
-					const latest = await invoke("space_read_text", { path });
+					let latest: TextFileDoc;
+					if (path.toLowerCase().endsWith(".docx")) {
+						const markdown = await readDocxAsMarkdown(path);
+						latest = {
+							rel_path: path,
+							text: markdown,
+							etag: "",
+							mtime_ms: Date.now(),
+						};
+					} else {
+						latest = await invoke("space_read_text", { path });
+					}
 					if (!isCurrentSession(sessionId)) return false;
 					if (latest.text === nextText) {
 						applySaveState(nextText, latest.mtime_ms);
@@ -860,6 +904,21 @@ export function MarkdownEditorPane({
 		<section className="filePreviewPane markdownEditorPane" ref={paneRef}>
 			<div className="markdownEditorFloatActions">
 				<div className="markdownEditorToolbar">
+					<div className="markdownEditorToolbarActions" style={{ marginRight: 'auto', display: 'flex', gap: '0.25rem' }}>
+						<button
+							type="button"
+							className="markdownEditorToolbarBtn"
+							onClick={() => setLocalConnectionsOpen(true)}
+							aria-label="Manage connections"
+							title="Manage connections"
+						>
+							<HugeiconsIcon
+								icon={Link02Icon}
+								size="var(--icon-md)"
+								strokeWidth={0.9}
+							/>
+						</button>
+					</div>
 					<EditorViewModeSwitch
 						mode={mode}
 						largeNote={isLargeNote}

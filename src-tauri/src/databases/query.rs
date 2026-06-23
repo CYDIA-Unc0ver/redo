@@ -872,7 +872,7 @@ fn collect_available_properties(rows: &[DatabaseRow]) -> Vec<DatabasePropertyOpt
         for (key, value) in &row.properties {
             if matches!(
                 key.as_str(),
-                "title" | "created" | "updated" | "tags" | "glyph"
+                "title" | "created" | "updated" | "tags" | "qwert"
             ) {
                 continue;
             }

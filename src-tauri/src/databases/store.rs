@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 
 use uuid::Uuid;
 
-use crate::glyph_paths::ensure_glyph_dir;
+use crate::qwert_paths::ensure_qwert_dir;
 use crate::io_atomic;
 
 use super::types::{
@@ -18,7 +18,7 @@ fn now_iso() -> String {
 }
 
 fn databases_store_path(space_root: &Path) -> Result<PathBuf, String> {
-    Ok(ensure_glyph_dir(space_root)?.join(DATABASES_STORE_FILE))
+    Ok(ensure_qwert_dir(space_root)?.join(DATABASES_STORE_FILE))
 }
 
 pub(crate) fn default_view(name: &str) -> DatabaseViewDefinition {

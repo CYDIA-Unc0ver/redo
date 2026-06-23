@@ -1,6 +1,6 @@
 # Spaces, Storage, and Filesystem Flow
 
-Glyph treats a user-selected folder as a space. A space contains the user's notes and attachments, plus a `.glyph/` directory for app metadata. The Rust backend owns space lifecycle, file safety, writes, indexing side effects, and filesystem change events.
+QWERT treats a user-selected folder as a space. A space contains the user's notes and attachments, plus a `.qwert/` directory for app metadata. The Rust backend owns space lifecycle, file safety, writes, indexing side effects, and filesystem change events.
 
 This doc explains how a space opens, how files move through the system, and what code you must touch when changing storage behavior.
 
@@ -14,11 +14,11 @@ My Space/
     Plan.md
   assets/
     pasted-image.png
-  .glyph/
-    glyph.sqlite
+  .qwert/
+    qwert.sqlite
     databases.json
     cache/
-    Glyph/
+    QWERT/
       ai_history/
       ai_secrets.json
 ```
@@ -29,7 +29,7 @@ Code ownership:
 - `src-tauri/src/space/helpers.rs`: create/open implementation and onboarding helpers
 - `src-tauri/src/space/state.rs`: active root, watcher handle, local-change tracking, store mutexes
 - `src-tauri/src/space/watcher.rs`: recursive filesystem watcher and index refresh
-- `src-tauri/src/glyph_paths.rs`: `.glyph/` paths
+- `src-tauri/src/qwert_paths.rs`: `.qwert/` paths
 - `src-tauri/src/space_fs/`: file tree, read/write, preview, rename, delete, link resolution
 - `src-tauri/src/paths.rs`: traversal-safe joining
 - `src-tauri/src/io_atomic.rs`: crash-safer writes and copies
@@ -57,7 +57,7 @@ The state has three jobs:
 
 1. Hold the active root path.
 2. Hold the watcher so it stays alive for the current space.
-3. Share mutexes for JSON stores that live under `.glyph/`.
+3. Share mutexes for JSON stores that live under `.qwert/`.
 
 `current_root()` returns an error when no space is open. Most commands call it first, so the backend enforces "no active space, no workspace operation."
 
@@ -75,7 +75,7 @@ Rust flow in `space_open` and `space_create`:
 
 1. Build a `PathBuf` from the user-selected path.
 2. Canonicalize the directory through helper code.
-3. Create or open Glyph metadata.
+3. Create or open QWERT metadata.
 4. Reset the index schema cache with `index::db::reset_schema_cache()`.
 5. Store the canonical root in `SpaceState.current`.
 6. Install the notes watcher with `set_notes_watcher()`.
@@ -93,7 +93,7 @@ All space-relative filesystem code should join paths with `paths::join_under(roo
 - `..`
 - platform root or prefix components
 
-Space filesystem commands also call `deny_hidden_rel_path()` from `space_fs/helpers.rs`. It rejects any path component that starts with `.`. That blocks access to `.glyph/` through normal workspace file APIs.
+Space filesystem commands also call `deny_hidden_rel_path()` from `space_fs/helpers.rs`. It rejects any path component that starts with `.`. That blocks access to `.qwert/` through normal workspace file APIs.
 
 Use both checks for user-controlled space-relative paths:
 
@@ -103,7 +103,7 @@ deny_hidden_rel_path(&rel)?;
 let abs = paths::join_under(&root, &rel)?;
 ```
 
-Do not bypass these helpers for convenience. A command that reads or writes a user-provided path without these checks can expose `.glyph/`, app metadata, or files outside the space.
+Do not bypass these helpers for convenience. A command that reads or writes a user-provided path without these checks can expose `.qwert/`, app metadata, or files outside the space.
 
 ## File Listing
 
@@ -234,17 +234,17 @@ Delete events close matching tabs through `dispatchPathRemoved()` and `closeTabs
 
 The editor and preview panes dispatch link click events. `AppShell` listens and either opens a workspace file, opens a search palette, or opens an external URL.
 
-## Storage Stores Under `.glyph/`
+## Storage Stores Under `.qwert/`
 
-`glyph_paths.rs` defines app-controlled paths:
+`qwert_paths.rs` defines app-controlled paths:
 
-- `glyph_dir()`: `.glyph`
-- `glyph_db_path()`: `.glyph/glyph.sqlite`
-- `glyph_cache_dir()`: `.glyph/cache`
-- `glyph_app_dir()`: `.glyph/Glyph`
-- `ai_history_dir()`: `.glyph/Glyph/ai_history`
+- `qwert_dir()`: `.qwert`
+- `qwert_db_path()`: `.qwert/qwert.sqlite`
+- `qwert_cache_dir()`: `.qwert/cache`
+- `qwert_app_dir()`: `.qwert/QWERT`
+- `ai_history_dir()`: `.qwert/QWERT/ai_history`
 
-JSON stores under `.glyph/` include:
+JSON stores under `.qwert/` include:
 
 - `databases.json` from `databases/store.rs`
 - `ai_secrets.json` from `ai_rig/local_secrets.rs`
@@ -253,20 +253,20 @@ JSON stores under `.glyph/` include:
 - tag appearance from `tag_appearance/store.rs`
 - pinned files from `pinned_files/store.rs`
 
-Each store uses a mutex from `SpaceState` or a module-specific guard where concurrent writes could collide. Keep that pattern when adding a new `.glyph/` JSON store.
+Each store uses a mutex from `SpaceState` or a module-specific guard where concurrent writes could collide. Keep that pattern when adding a new `.qwert/` JSON store.
 
 ## Change Checklist
 
 When you change filesystem behavior:
 
-1. Identify whether the data belongs to user content, derived `.glyph/` state, or app config.
+1. Identify whether the data belongs to user content, derived `.qwert/` state, or app config.
 2. Validate all user-provided paths with `deny_hidden_rel_path()` and `join_under()`.
 3. Use `write_atomic()` for overwrites.
 4. Mark local markdown changes before writes that the watcher will see.
 5. Reindex markdown changes before emitting UI refresh events.
 6. Update pinned files, appearance paths, and tabs for path moves.
 7. Add or adjust events when the frontend needs to refresh cached state.
-8. Keep `.glyph/` inaccessible through normal space file commands.
+8. Keep `.qwert/` inaccessible through normal space file commands.
 
 ## Failure Modes
 
@@ -274,4 +274,4 @@ When you change filesystem behavior:
 - If an editor overwrites external changes, inspect `base_mtime_ms` in `space_write_text` and `persistDoc()`.
 - If the index misses a note, inspect `mark_recent_local_change()` timing and explicit `index_note()` calls.
 - If JSON metadata corrupts after a crash, inspect whether the store writes through `io_atomic::write_atomic()`.
-- If a path bug can reach `.glyph/`, treat it as a security bug.
+- If a path bug can reach `.qwert/`, treat it as a security bug.

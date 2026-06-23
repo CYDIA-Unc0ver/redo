@@ -1,6 +1,6 @@
 # Security and Operational Invariants
 
-Glyph is an offline-first desktop app that works on user-selected folders. The app must protect three things: files outside the active space, app metadata under `.glyph/`, and user secrets. Most safety comes from narrow path APIs, atomic writes, explicit network checks, and a clear source-of-truth rule.
+QWERT is an offline-first desktop app that works on user-selected folders. The app must protect three things: files outside the active space, app metadata under `.qwert/`, and user secrets. Most safety comes from narrow path APIs, atomic writes, explicit network checks, and a clear source-of-truth rule.
 
 ## Main Files
 
@@ -14,7 +14,7 @@ Backend safety:
 - `src-tauri/src/ai_rig/tools.rs`: AI tool path and size limits
 - `src-tauri/src/ai_rig/local_secrets.rs`: per-space AI secrets store
 - `src-tauri/src/license/`: license storage and Gumroad verification
-- `src-tauri/src/glyph_paths.rs`: controlled `.glyph/` paths
+- `src-tauri/src/qwert_paths.rs`: controlled `.qwert/` paths
 - `src-tauri/src/space/watcher.rs`: watcher and local-change suppression
 
 Frontend safety:
@@ -30,10 +30,10 @@ Markdown files are the source of truth for note content.
 
 Allowed derived state:
 
-- `.glyph/glyph.sqlite`
-- `.glyph/databases.json`
-- `.glyph/cache/ai/`
-- `.glyph/Glyph/ai_history/`
+- `.qwert/qwert.sqlite`
+- `.qwert/databases.json`
+- `.qwert/cache/ai/`
+- `.qwert/QWERT/ai_history/`
 - appearance and pinned-file stores
 - app settings stores
 
@@ -60,18 +60,18 @@ let abs = paths::join_under(&root, &rel)?;
 Together, those helpers protect:
 
 - files outside the selected folder
-- `.glyph/`
+- `.qwert/`
 - hidden files and folders
 
 Do not manually concatenate paths. Do not canonicalize a user path and then strip prefixes unless you have checked the exact race and symlink behavior you need.
 
-## Invariant 3: `.glyph/` Is App Metadata
+## Invariant 3: `.qwert/` Is App Metadata
 
-Normal workspace file APIs must not expose `.glyph/`.
+Normal workspace file APIs must not expose `.qwert/`.
 
 Only app-owned modules should read or write it:
 
-- `glyph_paths.rs`
+- `qwert_paths.rs`
 - index database code
 - database store code
 - AI history/secrets code
@@ -79,7 +79,7 @@ Only app-owned modules should read or write it:
 - pinned files
 - Git sync config
 
-User-visible file tree commands hide dotfiles and reject hidden paths. If a feature needs to show `.glyph/` for diagnostics, build a dedicated diagnostic command that redacts secrets and does not reuse normal file APIs.
+User-visible file tree commands hide dotfiles and reject hidden paths. If a feature needs to show `.qwert/` for diagnostics, build a dedicated diagnostic command that redacts secrets and does not reuse normal file APIs.
 
 ## Invariant 4: Writes Are Crash-Safer
 
@@ -113,7 +113,7 @@ This prevents duplicate indexing and reload loops while keeping the UI informed.
 
 ## Invariant 7: SQLite Is Derived
 
-`.glyph/glyph.sqlite` stores derived rows for:
+`.qwert/qwert.sqlite` stores derived rows for:
 
 - notes
 - links
@@ -129,7 +129,7 @@ Never write a note only by updating SQLite. Write Markdown, then reindex.
 
 ## Invariant 8: Database Rows Write Frontmatter
 
-Workspace databases store definitions in `.glyph/databases.json`. Rows come from notes.
+Workspace databases store definitions in `.qwert/databases.json`. Rows come from notes.
 
 Editable cells update YAML frontmatter and reindex the note. Read-only columns stay read-only because they derive from filesystem paths, timestamps, or links.
 
@@ -182,17 +182,17 @@ User-supplied network features should use `net::validate_url_host()` or a strict
 Current AI secrets are stored per space by `ai_rig/local_secrets.rs` in:
 
 ```text
-.glyph/Glyph/ai_secrets.json
+.qwert/QWERT/ai_secrets.json
 ```
 
-Normal file APIs block `.glyph/`, so the file tree and AI tools cannot read this file through their standard paths. That does not make the file encrypted. Treat it as sensitive app metadata.
+Normal file APIs block `.qwert/`, so the file tree and AI tools cannot read this file through their standard paths. That does not make the file encrypted. Treat it as sensitive app metadata.
 
 Rules:
 
 - Never log API keys.
 - Never write API keys to AI history.
 - Never include secrets in context manifests.
-- Never expose `.glyph/Glyph/ai_secrets.json` through previews or file tree commands.
+- Never expose `.qwert/QWERT/ai_secrets.json` through previews or file tree commands.
 - Consider OS keychain migration separately if the product requires encrypted local secret storage.
 
 ## Invariant 12: License Keys Are Hashed and Masked
@@ -267,7 +267,7 @@ Ask these questions during review:
 - Does it pass through `join_under()` and hidden-path denial?
 - Does it write through `write_atomic()` or `create_new`?
 - Does it update derived state after changing Markdown?
-- Does it expose `.glyph/` directly or indirectly?
+- Does it expose `.qwert/` directly or indirectly?
 - Does it place secrets in logs, JSON history, SQLite, or frontend state?
 - Does it accept a URL or base URL?
 - Does it validate host and scheme?

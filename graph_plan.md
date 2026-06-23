@@ -24,7 +24,7 @@
 
 ## Why this matters
 
-Glyph's only graph surface is a per-note modal
+QWERT's only graph surface is a per-note modal
 (`LocalNoteGraphDialog`) showing one hop of neighbors. The SQLite index
 already stores every note, every note-to-note edge (`links` and
 `note_relationships` tables, with from/to indexes), and every indexed tag
@@ -156,7 +156,7 @@ In `src-tauri/src/index/commands.rs`:
    `SpaceGraphTagNode { id, tag, title, note_count }`,
    `SpaceGraphTagEdge { tag_id, note_id }`, and
    `SpaceGraph { nodes, edges, tags, tag_edges, truncated: bool, truncated_tags: bool, total_notes: u32, total_tags: u32 }`.
-   Use `glyph:tag:{tag}` IDs to match the local graph's tag node convention.
+   Use `qwert:tag:{tag}` IDs to match the local graph's tag node convention.
 2. Add `fn space_graph_for_conn(conn: &rusqlite::Connection, max_nodes: usize, max_tags: usize) -> Result<SpaceGraph, String>`:
    - Count total notes.
    - Build note degree from note-to-note links, relationships, and explicit

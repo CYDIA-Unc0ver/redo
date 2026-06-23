@@ -56,19 +56,19 @@ function encodeMarkdownImageDestinations(input: string): string {
 	);
 }
 
-const GLYPH_COLOR_HTML_RE =
-	/<span\b(?=[^>]*\bdata-glyph-color=(?:"([^"]+)"|'([^']+)'))(?=[^>]*\bstyle=(?:"[^"]*"|'[^']*'))[^>]*>([\s\S]*?)<\/span>/gi;
+const QWERT_COLOR_HTML_RE =
+	/<span\b(?=[^>]*\bdata-qwert-color=(?:"([^"]+)"|'([^']+)'))(?=[^>]*\bstyle=(?:"[^"]*"|'[^']*'))[^>]*>([\s\S]*?)<\/span>/gi;
 
-const GLYPH_COLOR_BRIDGE_RE =
-	/\{\{glyph-color:([a-z]+)\}\}([\s\S]*?)\{\{\/glyph-color\}\}/gi;
-const GLYPH_HIGHLIGHT_HTML_RE =
-	/<mark\b(?=[^>]*\bdata-glyph-highlight=(?:"([^"]+)"|'([^']+)'))(?=[^>]*\bstyle=(?:"[^"]*"|'[^']*'))[^>]*>([\s\S]*?)<\/mark>/gi;
-const GLYPH_HIGHLIGHT_BRIDGE_RE =
-	/\{\{glyph-highlight:([a-z]+)\}\}([\s\S]*?)\{\{\/glyph-highlight\}\}/gi;
+const QWERT_COLOR_BRIDGE_RE =
+	/\{\{qwert-color:([a-z]+)\}\}([\s\S]*?)\{\{\/qwert-color\}\}/gi;
+const QWERT_HIGHLIGHT_HTML_RE =
+	/<mark\b(?=[^>]*\bdata-qwert-highlight=(?:"([^"]+)"|'([^']+)'))(?=[^>]*\bstyle=(?:"[^"]*"|'[^']*'))[^>]*>([\s\S]*?)<\/mark>/gi;
+const QWERT_HIGHLIGHT_BRIDGE_RE =
+	/\{\{qwert-highlight:([a-z]+)\}\}([\s\S]*?)\{\{\/qwert-highlight\}\}/gi;
 
 function preprocessColoredText(input: string): string {
 	return input.replace(
-		GLYPH_COLOR_HTML_RE,
+		QWERT_COLOR_HTML_RE,
 		(
 			_match,
 			dqColor: string | undefined,
@@ -84,7 +84,7 @@ function preprocessColoredText(input: string): string {
 
 function preprocessHighlightedText(input: string): string {
 	return input.replace(
-		GLYPH_HIGHLIGHT_HTML_RE,
+		QWERT_HIGHLIGHT_HTML_RE,
 		(
 			_match,
 			dqColor: string | undefined,
@@ -100,7 +100,7 @@ function preprocessHighlightedText(input: string): string {
 
 function postprocessColoredText(input: string): string {
 	return input.replace(
-		GLYPH_COLOR_BRIDGE_RE,
+		QWERT_COLOR_BRIDGE_RE,
 		(_match, rawColor: string, text: string) => {
 			if (!isEditorTextColor(rawColor)) return text;
 			return `${getEditorTextColorMarkdownOpenTag(rawColor)}${text}</span>`;
@@ -110,7 +110,7 @@ function postprocessColoredText(input: string): string {
 
 function postprocessHighlightedText(input: string): string {
 	return input.replace(
-		GLYPH_HIGHLIGHT_BRIDGE_RE,
+		QWERT_HIGHLIGHT_BRIDGE_RE,
 		(_match, rawColor: string, text: string) => {
 			if (!isEditorTextHighlight(rawColor)) return text;
 			return `${getEditorTextHighlightMarkdownOpenTag(rawColor)}${text}</mark>`;

@@ -100,7 +100,7 @@ export function ExternalMarkdownWindow() {
 				setPath(windowPath);
 				const nextTitle = displayNameFromPath(windowPath);
 				setTitle(nextTitle);
-				await getCurrentWindow().setTitle(`${nextTitle} - Glyph`);
+				await getCurrentWindow().setTitle(`${nextTitle} - QWERT`);
 
 				const doc = await invoke("external_markdown_read", {
 					path: windowPath,

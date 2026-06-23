@@ -54,7 +54,7 @@ describe("renderTemplate", () => {
 			].join("\n"),
 			{
 				destinationPath: "projects/my-note.md",
-				spaceRootPath: "/Users/tester/Glyph Space",
+				spaceRootPath: "/Users/tester/QWERT Space",
 				date: new Date(2026, 0, 2, 11, 22, 33),
 			},
 		);
@@ -62,7 +62,7 @@ describe("renderTemplate", () => {
 		expect(rendered).toContain("# my note");
 		expect(rendered).toContain("- Slug: my-note");
 		expect(rendered).toContain("- Path: projects/my-note.md");
-		expect(rendered).toContain("- Space: Glyph Space");
+		expect(rendered).toContain("- Space: QWERT Space");
 		expect(rendered).toContain("- Date: 2026-01-02");
 		expect(rendered).toContain("- Unknown: {{custom_field}}");
 	});

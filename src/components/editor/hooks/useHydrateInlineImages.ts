@@ -302,15 +302,15 @@ export function useHydrateInlineImages(
 			const current = image.getAttribute("src")?.trim() ?? "";
 			if (!current) return;
 			const originalSrc =
-				image.getAttribute("data-glyph-origin-src")?.trim() ?? current;
+				image.getAttribute("data-qwert-origin-src")?.trim() ?? current;
 			if (!originalSrc || isDirectImageUrl(originalSrc)) return;
-			if (image.getAttribute("data-glyph-origin-src") !== originalSrc) {
-				image.setAttribute("data-glyph-origin-src", originalSrc);
+			if (image.getAttribute("data-qwert-origin-src") !== originalSrc) {
+				image.setAttribute("data-qwert-origin-src", originalSrc);
 			}
 			const resolverKind = getResolverKindForImage(image);
 			const key = getInlineImageCacheKey(sourcePath, originalSrc, resolverKind);
-			if (image.getAttribute("data-glyph-hydrated-key") === key) return;
-			image.dataset.glyphHydrationState = "loading";
+			if (image.getAttribute("data-qwert-hydrated-key") === key) return;
+			image.dataset.qwertHydrationState = "loading";
 			void resolveInlineImageDataUrl(
 				sourcePath,
 				originalSrc,
@@ -318,7 +318,7 @@ export function useHydrateInlineImages(
 			).then((dataUrl) => {
 				if (cancelled || !image.isConnected) return;
 				const currentOrigin =
-					image.getAttribute("data-glyph-origin-src")?.trim() ?? "";
+					image.getAttribute("data-qwert-origin-src")?.trim() ?? "";
 				const currentKey = currentOrigin
 					? getInlineImageCacheKey(
 							sourcePath,
@@ -328,13 +328,13 @@ export function useHydrateInlineImages(
 					: "";
 				if (currentKey !== key) return;
 				if (!dataUrl) {
-					image.dataset.glyphHydrationState = "failed";
+					image.dataset.qwertHydrationState = "failed";
 					return;
 				}
 				hydrateImageNodesInDocument(editor, originalSrc, dataUrl);
-				image.setAttribute("data-glyph-hydrated-key", key);
+				image.setAttribute("data-qwert-hydrated-key", key);
 				image.setAttribute("src", dataUrl);
-				image.dataset.glyphHydrationState = "ready";
+				image.dataset.qwertHydrationState = "ready";
 			});
 		};
 
@@ -351,10 +351,10 @@ export function useHydrateInlineImages(
 				image.decoding = "async";
 				const current = image.getAttribute("src")?.trim() ?? "";
 				const originalSrc =
-					image.getAttribute("data-glyph-origin-src")?.trim() ?? current;
+					image.getAttribute("data-qwert-origin-src")?.trim() ?? current;
 				if (!originalSrc || isDirectImageUrl(originalSrc)) continue;
-				if (image.getAttribute("data-glyph-origin-src") !== originalSrc) {
-					image.setAttribute("data-glyph-origin-src", originalSrc);
+				if (image.getAttribute("data-qwert-origin-src") !== originalSrc) {
+					image.setAttribute("data-qwert-origin-src", originalSrc);
 				}
 				const resolverKind = getResolverKindForImage(image);
 				const key = getInlineImageCacheKey(
@@ -362,14 +362,14 @@ export function useHydrateInlineImages(
 					originalSrc,
 					resolverKind,
 				);
-				if (image.getAttribute("data-glyph-hydrated-key") === key) continue;
-				if (image.dataset.glyphHydrationState === "loading") continue;
+				if (image.getAttribute("data-qwert-hydrated-key") === key) continue;
+				if (image.dataset.qwertHydrationState === "loading") continue;
 				if (!intersectionObserver) {
 					hydrateImage(image);
 					continue;
 				}
 				if (observedImages.has(image)) continue;
-				image.dataset.glyphHydrationState = "pending";
+				image.dataset.qwertHydrationState = "pending";
 				observedImages.add(image);
 				intersectionObserver.observe(image);
 			}

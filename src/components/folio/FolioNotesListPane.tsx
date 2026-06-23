@@ -37,7 +37,7 @@ interface FolioNotesListPaneProps {
 	onDeleteFile: (relPath: string) => Promise<boolean>;
 }
 
-const FOLIO_SORT_MODE_STORAGE_KEY = "glyph.folio.sortMode";
+const FOLIO_SORT_MODE_STORAGE_KEY = "qwert.folio.sortMode";
 const FOLIO_NOTE_ROW_ESTIMATE = 104;
 const FOLIO_FILE_ROW_ESTIMATE = 42;
 type FolioVirtualRow = {

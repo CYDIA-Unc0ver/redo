@@ -106,7 +106,7 @@ const RESTORE_DEFAULT_COLUMNS: DatabaseColumn[] = [
 const RESERVED_PROPERTY_KEYS = new Set([
 	"created",
 	"folder",
-	"glyph",
+	"qwert",
 	"linked_notes",
 	"path",
 	"tags",

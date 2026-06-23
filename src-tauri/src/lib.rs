@@ -8,7 +8,7 @@ mod databases;
 mod external_markdown;
 mod file_tree_appearance;
 mod git_sync;
-mod glyph_paths;
+mod qwert_paths;
 mod index;
 mod io_atomic;
 mod license;
@@ -54,7 +54,7 @@ const RECENT_SPACES_MENU_ID: &str = "space.recent.menu";
 
 fn init_tracing() {
     let filter = tracing_subscriber::EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info,tauri=info,glyph_lib=info"));
+        .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info,tauri=info,qwert_lib=info"));
 
     let _ = tracing_subscriber::fmt()
         .with_env_filter(filter)

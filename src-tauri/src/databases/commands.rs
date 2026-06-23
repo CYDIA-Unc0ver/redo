@@ -313,7 +313,7 @@ fn is_reserved_frontmatter_key(key: &str) -> bool {
         normalize_field_key(key).as_str(),
         "created"
             | "folder"
-            | "glyph"
+            | "qwert"
             | "id"
             | "linked_notes"
             | "path"

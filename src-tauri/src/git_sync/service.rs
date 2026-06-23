@@ -156,7 +156,7 @@ fn inspect_repo_health(
         }
         Some(current) if current != config.branch => {
             health.preflight_issue = Some(format!(
-                "Glyph expects branch {}, but the repo is currently on {}.",
+                "QWERT expects branch {}, but the repo is currently on {}.",
                 config.branch, current
             ));
             return Ok(health);
@@ -439,7 +439,7 @@ fn run_git_sync_background(
         let inspection = inspect_repo(&space_root)?;
         match &inspection {
             RepoInspection::Nested { .. } => {
-                return Err("The active space is inside a larger Git repository. Glyph only supports repos rooted at the space path.".to_string());
+                return Err("The active space is inside a larger Git repository. QWERT only supports repos rooted at the space path.".to_string());
             }
             RepoInspection::AtRoot { .. } => {}
             RepoInspection::None => {
@@ -488,7 +488,7 @@ fn run_git_sync_background(
         )?;
         stage_for_sync(&space_root)?;
         if working_tree_dirty(&space_root)? {
-            commit_all(&space_root, "Glyph sync")?;
+            commit_all(&space_root, "QWERT sync")?;
         }
 
         if remote_branch_exists(&space_root, remote_name, &branch)? {

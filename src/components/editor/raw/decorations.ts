@@ -8,7 +8,7 @@ import {
 	type ViewUpdate,
 } from "@codemirror/view";
 import {
-	addGlyphInlineDecorations,
+	addQWERTInlineDecorations,
 	findFrontmatterEnd,
 } from "./contentDecorations";
 import { createRawMarkdownEventHandlers } from "./interactions";
@@ -308,7 +308,7 @@ function buildVisibleDecorations(view: EditorView): DecorationSet {
 		const last = view.state.doc.lineAt(visible.to).number;
 		for (let lineNumber = first; lineNumber <= last; lineNumber += 1) {
 			const line = view.state.doc.line(lineNumber);
-			addGlyphInlineDecorations(ranges, view, line.from, line.text);
+			addQWERTInlineDecorations(ranges, view, line.from, line.text);
 		}
 	}
 	return Decoration.set(ranges, true);

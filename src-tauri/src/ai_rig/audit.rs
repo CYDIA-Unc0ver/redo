@@ -1,18 +1,18 @@
-use crate::{glyph_paths, io_atomic};
+use crate::{qwert_paths, io_atomic};
 use std::path::{Path, PathBuf};
 
 use super::helpers::{derive_chat_title, now_ms};
 use super::types::{AiChatRequest, AiMessage, AiProfile, AiStoredToolEvent};
 
 pub fn audit_log_path(space_root: &Path, job_id: &str) -> Result<PathBuf, String> {
-    let base = glyph_paths::ensure_glyph_cache_dir(space_root)?;
+    let base = qwert_paths::ensure_qwert_cache_dir(space_root)?;
     let dir = base.join("ai");
     std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir.join(format!("{job_id}.json")))
 }
 
 pub fn history_log_path(space_root: &Path, job_id: &str) -> Result<PathBuf, String> {
-    let dir = glyph_paths::ensure_ai_history_dir(space_root)?;
+    let dir = qwert_paths::ensure_ai_history_dir(space_root)?;
     Ok(dir.join(format!("{job_id}.json")))
 }
 

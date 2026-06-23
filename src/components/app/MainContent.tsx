@@ -342,7 +342,7 @@ function DailyNotesSetupToast({
 							</div>
 						</div>
 						<p className="dailyNotesSetupToastText">
-							Glyph will create each day&apos;s note there automatically.
+							QWERT will create each day&apos;s note there automatically.
 						</p>
 						<div className="dailyNotesSetupToastActions">
 							<Button

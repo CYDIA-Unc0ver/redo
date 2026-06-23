@@ -81,7 +81,7 @@ interface AppearancePickerTarget {
 }
 
 function spaceLabelFromPath(path: string | null): string {
-	if (!path) return "Glyph";
+	if (!path) return "QWERT";
 	const normalized = path.replace(/\\/g, "/").replace(/\/+$/, "");
 	const parts = normalized.split("/").filter(Boolean);
 	return parts[parts.length - 1] ?? path;

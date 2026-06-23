@@ -1,9 +1,9 @@
-export const PATH_REMOVED_EVENT = "glyph:path-removed";
-export const FILE_TREE_START_RENAME_EVENT = "glyph:file-tree-start-rename";
-export const PATH_RENAMED_EVENT = "glyph:path-renamed";
-export const OPEN_LOCAL_CONNECTIONS_EVENT = "glyph:open-local-connections";
-export const EDITOR_MENU_ACTION_EVENT = "glyph:editor-menu-action";
-export const TOGGLE_NOTE_INFO_SIDEBAR_EVENT = "glyph:toggle-note-info-sidebar";
+export const PATH_REMOVED_EVENT = "qwert:path-removed";
+export const FILE_TREE_START_RENAME_EVENT = "qwert:file-tree-start-rename";
+export const PATH_RENAMED_EVENT = "qwert:path-renamed";
+export const OPEN_LOCAL_CONNECTIONS_EVENT = "qwert:open-local-connections";
+export const EDITOR_MENU_ACTION_EVENT = "qwert:editor-menu-action";
+export const TOGGLE_NOTE_INFO_SIDEBAR_EVENT = "qwert:toggle-note-info-sidebar";
 
 export interface PathRemovedDetail {
 	path: string;

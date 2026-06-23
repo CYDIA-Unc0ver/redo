@@ -1,11 +1,11 @@
-# Glyph
+# QWERT
 
 <p align="center">
-  <img src="logo_g.PNG" alt="Glyph logo" width="140" />
+  <img src="logo_g.PNG" alt="QWERT logo" width="140" />
 </p>
 
 <p align="center">
-  <strong>Join the Glyph community</strong><br />
+  <strong>Join the QWERT community</strong><br />
   Share feedback, ask questions, and help shape what comes next.
 </p>
 
@@ -13,7 +13,7 @@
   <a href="https://discord.gg/fasY8gAQR"><strong>Join us on Discord →</strong></a>
 </p>
 
-![Glyph](imageforWebsite.png)
+![QWERT](imageforWebsite.png)
 
 Glyph is a local-first desktop space for notes, collections, previews, and AI-assisted thinking. Your notes are plain Markdown files stored in a folder you choose, making them accessible to any app that understands Markdown.
 

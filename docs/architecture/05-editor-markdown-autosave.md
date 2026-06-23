@@ -1,6 +1,6 @@
 # Editor, Markdown, and Autosave
 
-Glyph edits Markdown files through a TipTap rich editor, but the durable document remains Markdown text on disk. The editor stack has three jobs: convert Markdown into an editable ProseMirror document, keep React state in sync with editor changes, and persist the file through Rust with conflict detection.
+QWERT edits Markdown files through a TipTap rich editor, but the durable document remains Markdown text on disk. The editor stack has three jobs: convert Markdown into an editable ProseMirror document, keep React state in sync with editor changes, and persist the file through Rust with conflict detection.
 
 ## Main Files
 
