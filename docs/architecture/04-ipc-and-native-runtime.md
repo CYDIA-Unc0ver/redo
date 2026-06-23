@@ -1,6 +1,6 @@
 # IPC and Native Runtime
 
-Glyph uses Tauri as the bridge between React and Rust. The IPC boundary has a typed frontend map and explicit Rust registration. Native menus, windows, plugins, and global shortcuts live next to that command boundary because they all belong to the app runtime rather than to a single React component.
+QWERT uses Tauri as the bridge between React and Rust. The IPC boundary has a typed frontend map and explicit Rust registration. Native menus, windows, plugins, and global shortcuts live next to that command boundary because they all belong to the app runtime rather than to a single React component.
 
 ## Main Files
 

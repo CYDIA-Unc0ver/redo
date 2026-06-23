@@ -12,7 +12,7 @@ const SETTINGS_TAB_LABELS = {
 	general: "General",
 	appearance: "Appearance",
 	shortcuts: "Shortcuts",
-	ai: "Glyph AI",
+	ai: "QWERT AI",
 	space: "Space",
 	git: "Git",
 	advanced: "Advanced",

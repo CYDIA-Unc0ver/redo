@@ -163,11 +163,11 @@ export function GitSettingsPane() {
 			<div className="settingsGrid">
 				<SettingsSection
 					title="Connection"
-					description="Glyph uses Git automatically when the opened space is already a repository."
+					description="QWERT uses Git automatically when the opened space is already a repository."
 				>
 					<SettingsRow
 						label="Git availability"
-						description="Glyph uses the system git binary and your existing Git credentials."
+						description="QWERT uses the system git binary and your existing Git credentials."
 						stacked
 						interactive={false}
 					>
@@ -184,7 +184,7 @@ export function GitSettingsPane() {
 					</SettingsRow>
 					<SettingsRow
 						label="Repository state"
-						description="Glyph only supports repositories rooted exactly at the current space."
+						description="QWERT only supports repositories rooted exactly at the current space."
 						stacked
 						interactive={false}
 					>
@@ -223,7 +223,7 @@ export function GitSettingsPane() {
 					{config ? (
 						<SettingsRow
 							label="Branch"
-							description="Glyph syncs a single branch per space."
+							description="QWERT syncs a single branch per space."
 							stacked
 							interactive={false}
 						>
@@ -262,7 +262,7 @@ export function GitSettingsPane() {
 					</SettingsRow>
 					<SettingsRow
 						label="Interval"
-						description="How often Glyph should run scheduled syncs."
+						description="How often QWERT should run scheduled syncs."
 					>
 						<SettingsSelect
 							aria-label="Git sync interval"
@@ -323,12 +323,12 @@ export function GitSettingsPane() {
 
 				<SettingsSection
 					title="Conflict Resolution"
-					description="Choose which side Glyph should favor when local and remote edits conflict."
+					description="Choose which side QWERT should favor when local and remote edits conflict."
 					className={!gitEnabledForSpace ? "settingsSectionMuted" : undefined}
 				>
 					<SettingsRow
 						label="Policy"
-						description="Glyph resolves conflicts automatically."
+						description="QWERT resolves conflicts automatically."
 					>
 						<SettingsSelect
 							aria-label="Conflict policy"
@@ -352,7 +352,7 @@ export function GitSettingsPane() {
 
 				<SettingsSection
 					title="Content"
-					description="Choose which space content Glyph should include in sync commits."
+					description="Choose which space content QWERT should include in sync commits."
 					className={!gitEnabledForSpace ? "settingsSectionMuted" : undefined}
 				>
 					<SettingsRow
@@ -387,7 +387,7 @@ export function GitSettingsPane() {
 					</SettingsRow>
 					<SettingsRow
 						label="Include non-markdown files"
-						description="When off, Glyph limits sync to markdown plus explicitly included folders."
+						description="When off, QWERT limits sync to markdown plus explicitly included folders."
 					>
 						<SettingsToggle
 							ariaLabel="Include non-markdown files"

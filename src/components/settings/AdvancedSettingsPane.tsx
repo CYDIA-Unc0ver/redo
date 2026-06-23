@@ -224,7 +224,7 @@ export function AdvancedSettingsPane() {
 			<div className="settingsGrid">
 				<SettingsSection
 					title="Editor"
-					description="Controls for editing behavior and note structure inside Glyph."
+					description="Controls for editing behavior and note structure inside QWERT."
 				>
 					<SettingsRow
 						label="Table of contents"
@@ -528,7 +528,7 @@ export function AdvancedSettingsPane() {
 				</SettingsSection>
 				<SettingsSection
 					title="Database"
-					description="Global controls for how databases are presented across Glyph."
+					description="Global controls for how databases are presented across QWERT."
 				>
 					<SettingsRow
 						label="Show database column color"

@@ -541,7 +541,7 @@ mod tests {
     impl TempSpace {
         fn new() -> Self {
             let root =
-                std::env::temp_dir().join(format!("glyph-indexer-test-{}", uuid::Uuid::new_v4()));
+                std::env::temp_dir().join(format!("qwert-indexer-test-{}", uuid::Uuid::new_v4()));
             std::fs::create_dir_all(&root).expect("temp space should be created");
             Self { root }
         }

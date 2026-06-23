@@ -1,8 +1,8 @@
 # LaTeX equations in Markdown notes
 
-Glyph renders LaTeX mathematics with KaTeX while keeping ordinary Markdown as
+QWERT renders LaTeX mathematics with KaTeX while keeping ordinary Markdown as
 the durable file format. This is mathematical typesetting, not a full TeX
-compiler: Glyph does not load arbitrary TeX packages, execute commands, compile
+compiler: QWERT does not load arbitrary TeX packages, execute commands, compile
 documents, or resolve bibliography files.
 
 ## Syntax

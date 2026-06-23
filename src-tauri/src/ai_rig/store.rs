@@ -1,4 +1,4 @@
-use crate::{glyph_paths, io_atomic};
+use crate::{qwert_paths, io_atomic};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::{path::Path, path::PathBuf};
@@ -21,7 +21,7 @@ pub fn store_path(app: &AppHandle) -> Result<PathBuf, String> {
 
 pub fn store_path_for_space(app: &AppHandle, space_root: Option<&Path>) -> Result<PathBuf, String> {
     match space_root {
-        Some(root) => Ok(glyph_paths::ensure_glyph_app_dir(root)?.join("ai.json")),
+        Some(root) => Ok(qwert_paths::ensure_qwert_app_dir(root)?.join("ai.json")),
         None => store_path(app),
     }
 }

@@ -23,7 +23,7 @@ describe("looksLikeMarkdownPaste", () => {
 		expect(looksLikeMarkdownPaste("Use *italic* text")).toBe(true);
 		expect(looksLikeMarkdownPaste("Use ~~done~~ text")).toBe(true);
 		expect(looksLikeMarkdownPaste("Use `code` here")).toBe(true);
-		expect(looksLikeMarkdownPaste("Read [Glyph](https://example.com)")).toBe(
+		expect(looksLikeMarkdownPaste("Read [QWERT](https://example.com)")).toBe(
 			true,
 		);
 		expect(

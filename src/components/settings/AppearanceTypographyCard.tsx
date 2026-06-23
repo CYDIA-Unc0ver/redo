@@ -89,7 +89,7 @@ export function AppearanceTypographyCard({
 			<SettingsRow
 				label="Interface font"
 				htmlFor="settingsFontFamily"
-				description="Used for navigation, settings, and most UI copy across Glyph."
+				description="Used for navigation, settings, and most UI copy across QWERT."
 			>
 				<SettingsSelect
 					id="settingsFontFamily"

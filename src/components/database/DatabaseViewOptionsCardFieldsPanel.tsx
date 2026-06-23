@@ -14,7 +14,7 @@ const CARD_FIELDS: CardFieldEntry[] = [
 ];
 
 const CARD_FIELD_IDS = new Set(CARD_FIELDS.map((field) => field.id));
-const TITLE_ONLY_CARD_FIELDS = ["__glyph_title_only__"];
+const TITLE_ONLY_CARD_FIELDS = ["__qwert_title_only__"];
 
 export function visibleCardFieldCount(
 	fields: string[] | undefined,

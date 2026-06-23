@@ -1,8 +1,8 @@
-export const WIKI_LINK_CLICK_EVENT = "glyph:wikilink-click";
-export const MARKDOWN_LINK_CLICK_EVENT = "glyph:markdown-link-click";
-export const TAG_CLICK_EVENT = "glyph:tag-click";
-export const PERSON_CLICK_EVENT = "glyph:person-click";
-export const INTERNAL_ANCHOR_CLICK_EVENT = "glyph:internal-anchor-click";
+export const WIKI_LINK_CLICK_EVENT = "qwert:wikilink-click";
+export const MARKDOWN_LINK_CLICK_EVENT = "qwert:markdown-link-click";
+export const TAG_CLICK_EVENT = "qwert:tag-click";
+export const PERSON_CLICK_EVENT = "qwert:person-click";
+export const INTERNAL_ANCHOR_CLICK_EVENT = "qwert:internal-anchor-click";
 
 export interface WikiLinkClickDetail {
 	raw: string;

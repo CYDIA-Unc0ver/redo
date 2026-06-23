@@ -27,8 +27,8 @@ fn space_window_title(root: &Path) -> String {
     root.file_name()
         .and_then(|name| name.to_str())
         .filter(|name| !name.trim().is_empty())
-        .map(|name| format!("{name} - Glyph"))
-        .unwrap_or_else(|| "Glyph".to_string())
+        .map(|name| format!("{name} - QWERT"))
+        .unwrap_or_else(|| "QWERT".to_string())
 }
 
 fn install_window_session(

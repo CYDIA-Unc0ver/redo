@@ -1,7 +1,7 @@
 import { InputRule, type MarkdownToken } from "@tiptap/core";
 import { BlockMath, InlineMath } from "@tiptap/extension-mathematics";
 import {
-	GLYPH_KATEX_OPTIONS,
+	QWERT_KATEX_OPTIONS,
 	type MathEditRequest,
 	blockMathMarkdown,
 	inlineMathMarkdown,
@@ -9,7 +9,7 @@ import {
 	matchInlineMath,
 } from "./mathOptions";
 
-interface CreateGlyphMathExtensionsOptions {
+interface CreateQWERTMathExtensionsOptions {
 	onEditRequest: (request: MathEditRequest) => void;
 }
 
@@ -18,10 +18,10 @@ function latexFromToken(token: MarkdownToken): string {
 	return typeof value === "string" ? value : "";
 }
 
-export function createGlyphMathExtensions({
+export function createQWERTMathExtensions({
 	onEditRequest,
-}: CreateGlyphMathExtensionsOptions) {
-	const GlyphInlineMath = InlineMath.extend({
+}: CreateQWERTMathExtensionsOptions) {
+	const QWERTInlineMath = InlineMath.extend({
 		parseMarkdown(token) {
 			return { type: "inlineMath", attrs: { latex: latexFromToken(token) } };
 		},
@@ -60,12 +60,12 @@ export function createGlyphMathExtensions({
 			];
 		},
 	}).configure({
-		katexOptions: GLYPH_KATEX_OPTIONS,
+		katexOptions: QWERT_KATEX_OPTIONS,
 		onClick: (node, pos) =>
 			onEditRequest({ kind: "inline", latex: String(node.attrs.latex), pos }),
 	});
 
-	const GlyphBlockMath = BlockMath.extend({
+	const QWERTBlockMath = BlockMath.extend({
 		parseMarkdown(token) {
 			return { type: "blockMath", attrs: { latex: latexFromToken(token) } };
 		},
@@ -90,10 +90,10 @@ export function createGlyphMathExtensions({
 			return [];
 		},
 	}).configure({
-		katexOptions: GLYPH_KATEX_OPTIONS,
+		katexOptions: QWERT_KATEX_OPTIONS,
 		onClick: (node, pos) =>
 			onEditRequest({ kind: "block", latex: String(node.attrs.latex), pos }),
 	});
 
-	return [GlyphInlineMath, GlyphBlockMath];
+	return [QWERTInlineMath, QWERTBlockMath];
 }

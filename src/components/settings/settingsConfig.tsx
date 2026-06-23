@@ -3,7 +3,6 @@ import {
 	Archive02Icon,
 	CommandIcon,
 	GitBranchIcon,
-	Settings01Icon,
 	Sun03Icon,
 	ToolsIcon,
 } from "@hugeicons/core-free-icons";
@@ -12,7 +11,6 @@ import type { ReactElement } from "react";
 import { FolderOpen } from "../Icons/NavigationIcons";
 
 export type SettingsTab =
-	| "general"
 	| "appearance"
 	| "shortcuts"
 	| "ai"
@@ -35,17 +33,6 @@ export interface SettingsTabGroup {
 
 export const SETTINGS_TABS: SettingsTabMeta[] = [
 	{
-		id: "general",
-		label: "General",
-		renderIcon: () => (
-			<HugeiconsIcon
-				icon={Settings01Icon}
-				size="var(--icon-md)"
-				strokeWidth={0.9}
-			/>
-		),
-	},
-	{
 		id: "appearance",
 		label: "Appearance",
 		renderIcon: () => (
@@ -65,7 +52,7 @@ export const SETTINGS_TABS: SettingsTabMeta[] = [
 	},
 	{
 		id: "ai",
-		label: "Glyph AI",
+		label: "QWERT AI",
 		renderIcon: () => (
 			<HugeiconsIcon
 				icon={AiBrain04Icon}
@@ -120,7 +107,6 @@ export const SETTINGS_TAB_GROUPS: SettingsTabGroup[] = [
 		label: "Application",
 		tabs: SETTINGS_TABS.filter(
 			(tab) =>
-				tab.id === "general" ||
 				tab.id === "appearance" ||
 				tab.id === "shortcuts" ||
 				tab.id === "advanced" ||

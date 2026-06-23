@@ -1,5 +1,5 @@
 :root.light:not([data-light-theme]),
-:root.light[data-light-theme="glyph-default"] {
+:root.light[data-light-theme="qwert-default"] {
 	/* Clean neutral default — white surfaces, soft gray chrome, Notion-style ink. */
 	--bg-primary: #ffffff;
 	--bg-secondary: #f7f6f3;
@@ -23,9 +23,9 @@
 	--border-focus: rgba(55, 53, 47, 0.32);
 
 	--interactive-hover: rgba(55, 53, 47, 0.06);
-	--interactive-accent: var(--glyph-user-accent, #37352f);
-	--interactive-accent-hover: var(--glyph-user-accent-hover, #1f1f1f);
-	--accent-color: var(--glyph-user-accent, #37352f);
+	--interactive-accent: var(--qwert-user-accent, #37352f);
+	--interactive-accent-hover: var(--qwert-user-accent-hover, #1f1f1f);
+	--accent-color: var(--qwert-user-accent, #37352f);
 
 	--selection-bg-muted: rgba(55, 53, 47, 0.06);
 

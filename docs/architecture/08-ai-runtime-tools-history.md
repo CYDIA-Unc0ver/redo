@@ -1,6 +1,6 @@
 # AI Runtime, Tools, and History
 
-Glyph has one AI panel in the frontend and several backend runtimes. Rig-backed providers use local workspace tools. Dedicated providers such as Codex, Amp, Claude Code, OpenCode, and Pi use native runtime modules. Completed and cancelled chat paths stream events back to React and write history under the active space.
+QWERT has one AI panel in the frontend and several backend runtimes. Rig-backed providers use local workspace tools. Dedicated providers such as Codex, Amp, Claude Code, OpenCode, and Pi use native runtime modules. Completed and cancelled chat paths stream events back to React and write history under the active space.
 
 ## Main Files
 
@@ -89,15 +89,15 @@ These commands require an open space. They store secrets outside note content an
 Current storage path:
 
 ```text
-.glyph/Glyph/ai_secrets.json
+.qwert/QWERT/ai_secrets.json
 ```
 
-Normal workspace file APIs and AI tools reject hidden `.glyph/` paths, so standard in-app file access cannot read this file. The file is sensitive app metadata, not an encrypted keychain item.
+Normal workspace file APIs and AI tools reject hidden `.qwert/` paths, so standard in-app file access cannot read this file. The file is sensitive app metadata, not an encrypted keychain item.
 
 Never put API keys into:
 
-- `.glyph/databases.json`
-- `.glyph/glyph.sqlite`
+- `.qwert/databases.json`
+- `.qwert/qwert.sqlite`
 - AI audit logs
 - frontend settings JSON
 - app traces
@@ -276,7 +276,7 @@ Codex chat:
 - starts or resumes a thread
 - sets working directory to the active space root
 - uses `approvalPolicy = "never"`
-- converts Codex notifications into Glyph AI chunk/tool/status events
+- converts Codex notifications into QWERT AI chunk/tool/status events
 
 Because Codex owns its own account flow, it does not use API keys from `ai_secret_*`.
 
@@ -286,13 +286,13 @@ After a successful or cancelled run, `ai_chat_start()` calls `write_audit_log()`
 
 `write_audit_log()` writes two records:
 
-- per-run audit JSON under `.glyph/cache/ai/{job_id}.json`
-- chat history under `.glyph/Glyph/ai_history/{history_id}.json`
+- per-run audit JSON under `.qwert/cache/ai/{job_id}.json`
+- chat history under `.qwert/QWERT/ai_history/{history_id}.json`
 
 Chat history lives under:
 
 ```text
-.glyph/Glyph/ai_history/
+.qwert/QWERT/ai_history/
 ```
 
 The per-run audit JSON includes:

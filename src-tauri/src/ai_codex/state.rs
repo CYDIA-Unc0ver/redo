@@ -210,7 +210,7 @@ impl CodexState {
         let init_params = json!({
             "protocolVersion": "1",
             "clientInfo": {
-                "name": "Glyph",
+                "name": "QWERT",
                 "version": "0.1.0"
             }
         });

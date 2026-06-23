@@ -5,12 +5,12 @@ import {
 	preprocessMarkdownForEditor,
 } from "../markdown/wikiLinkMarkdownBridge";
 import { createEditorExtensions } from "./index";
-import { createGlyphMathExtensions } from "./math/markdownMath";
+import { createQWERTMathExtensions } from "./math/markdownMath";
 
 function createMarkdownManager() {
 	return new MarkdownManager({
 		extensions: createEditorExtensions({
-			additionalExtensions: createGlyphMathExtensions({
+			additionalExtensions: createQWERTMathExtensions({
 				onEditRequest: () => {},
 			}),
 			enableSlashCommand: false,

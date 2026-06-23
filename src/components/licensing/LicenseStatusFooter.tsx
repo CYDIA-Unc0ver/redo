@@ -21,7 +21,7 @@ export function LicenseStatusFooter() {
 					<span className="licenseSidebarText">
 						<span className="licenseSidebarLabel">Community Build</span>
 						<span className="licenseSidebarMeta">
-							Thanks for downloading and building Glyph yourself.
+							Thanks for downloading and building QWERT yourself.
 						</span>
 						<span className="licenseSidebarBody">
 							Support the project with the official license to get automatic

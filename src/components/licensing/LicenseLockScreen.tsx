@@ -42,10 +42,10 @@ export function LicenseLockScreen({
 		<div className="licenseLockScreen">
 			<div className="licenseLockPanel">
 				<div className="licenseLockEyebrow">Official Release</div>
-				<h1 className="licenseLockTitle">Glyph requires a license key</h1>
+				<h1 className="licenseLockTitle">QWERT requires a license key</h1>
 				<p className="licenseLockBody">
 					This official build includes a 7-day free trial. After that, a
-					lifetime Gumroad license unlocks Glyph forever on all of your devices.
+					lifetime Gumroad license unlocks QWERT forever on all of your devices.
 				</p>
 				{status?.mode === "trial_expired" ? (
 					<div className="licenseLockMetaRow">

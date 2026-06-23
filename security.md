@@ -12,11 +12,11 @@
 
 ## Secrets Handling
 
-- AI API keys are stored per space in `.glyph/Glyph/ai_secrets.json` by `src-tauri/src/ai_rig/local_secrets.rs`.
-- Normal workspace file APIs block hidden `.glyph/` paths, so the file tree, previews, and AI tools cannot read that file through standard space-relative access.
+- AI API keys are stored per space in `.qwert/QWERT/ai_secrets.json` by `src-tauri/src/ai_rig/local_secrets.rs`.
+- Normal workspace file APIs block hidden `.qwert/` paths, so the file tree, previews, and AI tools cannot read that file through standard space-relative access.
 - Secrets are not written to `ai.json`, SQLite index rows, or AI history logs.
 
 ## Audit Logs
 
-- Completed and cancelled AI requests write per-run audit JSON under `.glyph/cache/ai/` and chat history under `.glyph/Glyph/ai_history/`.
+- Completed and cancelled AI requests write per-run audit JSON under `.qwert/cache/ai/` and chat history under `.qwert/QWERT/ai_history/`.
 - Audit JSON includes request messages, context manifest, truncated context, truncated response, tool events, and an `outcome` field currently initialized as `null`.

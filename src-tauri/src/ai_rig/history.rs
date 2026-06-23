@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use tauri::{State, WebviewWindow};
 
-use crate::{glyph_paths, space::SpaceState};
+use crate::{qwert_paths, space::SpaceState};
 
 use super::helpers::derive_chat_title;
 use super::types::{AiMessage, AiProviderKind, AiStoredToolEvent};
@@ -92,7 +92,7 @@ fn list_history_impl(
     root: &std::path::Path,
     limit: usize,
 ) -> Result<Vec<AiChatHistorySummary>, String> {
-    let dir = glyph_paths::ai_history_dir(root)?;
+    let dir = qwert_paths::ai_history_dir(root)?;
     if !dir.exists() {
         return Ok(Vec::new());
     }

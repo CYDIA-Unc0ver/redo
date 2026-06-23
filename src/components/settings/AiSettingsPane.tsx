@@ -175,7 +175,7 @@ export function AiSettingsPane() {
 			<div className="settingsGrid">
 				<SettingsSection
 					title="Availability"
-					description="Turn AI tools on or off across Glyph."
+					description="Turn AI tools on or off across QWERT."
 				>
 					<SettingsRow
 						label="AI features"

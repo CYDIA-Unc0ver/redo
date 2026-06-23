@@ -132,7 +132,7 @@ export function AiProviderSection({
 			<SettingsRow
 				label="Model"
 				htmlFor="aiModel"
-				description="Glyph fetches available models for the selected provider when credentials allow it."
+				description="QWERT fetches available models for the selected provider when credentials allow it."
 			>
 				<AiModelCombobox
 					key={`${profileDraft.id}:${profileDraft.provider}`}

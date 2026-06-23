@@ -104,7 +104,7 @@ pub fn open_external_markdown_window(
         &label,
         WebviewUrl::App(format!("index.html?window={label}").into()),
     )
-    .title(format!("{} - Glyph", file_name_for_title(&path)))
+    .title(format!("{} - QWERT", file_name_for_title(&path)))
     .inner_size(820.0, 720.0)
     .min_inner_size(520.0, 360.0)
     .resizable(true)

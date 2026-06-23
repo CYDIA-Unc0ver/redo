@@ -151,7 +151,7 @@ pub fn split_system_and_messages(
 pub fn http_client() -> Result<reqwest::Client, String> {
     reqwest::Client::builder()
         .timeout(Duration::from_secs(90))
-        .user_agent("Glyph/0.1 (ai)")
+        .user_agent("QWERT/0.1 (ai)")
         .build()
         .map_err(|e| e.to_string())
 }

@@ -46,7 +46,7 @@ function addPatternDecorations(
 	}
 }
 
-export function addGlyphInlineDecorations(
+export function addQWERTInlineDecorations(
 	ranges: Range<Decoration>[],
 	view: EditorView,
 	lineFrom: number,

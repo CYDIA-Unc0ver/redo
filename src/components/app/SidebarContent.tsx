@@ -169,7 +169,7 @@ export const SidebarContent = memo(function SidebarContent({
 	const newNoteShortcut = getBinding("new-note");
 	const activeFolioFolder =
 		folioScope.kind === "folder" ? folioScope.folderPrefix : null;
-	const spaceLabel = spacePath ? formatSpaceLabel(spacePath) : "Glyph";
+	const spaceLabel = spacePath ? formatSpaceLabel(spacePath) : "QWERT";
 	const folioSpaceContainerPath = useMemo(() => {
 		if (!folioMode) return null;
 		return (

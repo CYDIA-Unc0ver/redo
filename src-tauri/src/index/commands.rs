@@ -766,7 +766,7 @@ fn local_note_connections_for_conn(
 }
 
 fn local_connections_tag_id(tag: &str) -> String {
-    format!("glyph:tag:{tag}")
+    format!("qwert:tag:{tag}")
 }
 
 fn local_connections_tag_expansion_for_seed_nodes(

@@ -13,8 +13,8 @@
 	border-radius: var(--radius-md);
 }
 
-.tiptapContentInline img[data-glyph-hydration-state="pending"],
-.tiptapContentInline img[data-glyph-hydration-state="loading"] {
+.tiptapContentInline img[data-qwert-hydration-state="pending"],
+.tiptapContentInline img[data-qwert-hydration-state="loading"] {
 	min-height: 120px;
 	background: color-mix(in srgb, var(--bg-secondary) 82%, var(--bg-primary));
 	color: transparent;
@@ -557,36 +557,36 @@
 	border: 1px solid color-mix(in srgb, var(--border-light) 68%, transparent);
 }
 
-.tiptapContentInline span[data-glyph-color="gray"] {
-	color: var(--glyph-inline-color-gray, #5f5e5b);
+.tiptapContentInline span[data-qwert-color="gray"] {
+	color: var(--qwert-inline-color-gray, #5f5e5b);
 }
 
-.tiptapContentInline span[data-glyph-color="brown"] {
-	color: var(--glyph-inline-color-brown, #8b5e3c);
+.tiptapContentInline span[data-qwert-color="brown"] {
+	color: var(--qwert-inline-color-brown, #8b5e3c);
 }
 
-.tiptapContentInline span[data-glyph-color="orange"] {
-	color: var(--glyph-inline-color-orange, #c76b1a);
+.tiptapContentInline span[data-qwert-color="orange"] {
+	color: var(--qwert-inline-color-orange, #c76b1a);
 }
 
-.tiptapContentInline span[data-glyph-color="yellow"] {
-	color: var(--glyph-inline-color-yellow, #a26a00);
+.tiptapContentInline span[data-qwert-color="yellow"] {
+	color: var(--qwert-inline-color-yellow, #a26a00);
 }
 
-.tiptapContentInline span[data-glyph-color="green"] {
-	color: var(--glyph-inline-color-green, #0f7b0f);
+.tiptapContentInline span[data-qwert-color="green"] {
+	color: var(--qwert-inline-color-green, #0f7b0f);
 }
 
-.tiptapContentInline span[data-glyph-color="blue"] {
-	color: var(--glyph-inline-color-blue, #1a6ba4);
+.tiptapContentInline span[data-qwert-color="blue"] {
+	color: var(--qwert-inline-color-blue, #1a6ba4);
 }
 
-.tiptapContentInline span[data-glyph-color="purple"] {
-	color: var(--glyph-inline-color-purple, #7a4bc2);
+.tiptapContentInline span[data-qwert-color="purple"] {
+	color: var(--qwert-inline-color-purple, #7a4bc2);
 }
 
-.tiptapContentInline span[data-glyph-color="red"] {
-	color: var(--glyph-inline-color-red, #c73838);
+.tiptapContentInline span[data-qwert-color="red"] {
+	color: var(--qwert-inline-color-red, #c73838);
 }
 
 .tiptapContentInline pre {

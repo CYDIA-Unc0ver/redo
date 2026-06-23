@@ -1,17 +1,17 @@
 # System Overview
 
-Glyph is an offline-first desktop note app. The app stores the user's notes as files in a chosen folder, keeps derived metadata in `.glyph/`, and uses Tauri commands to connect a React interface to a Rust backend.
+QWERT is an offline-first desktop note app. The app stores the user's notes as files in a chosen folder, keeps derived metadata in `.qwert/`, and uses Tauri commands to connect a React interface to a Rust backend.
 
 Use this document first. It gives you the map for the other architecture manuals and names the files that own the main behavior.
 
 ## Architecture Shape
 
-Glyph has four main runtime boundaries:
+QWERT has four main runtime boundaries:
 
 1. React frontend in `src/`
 2. Tauri command contract in `src/lib/tauri.ts`
 3. Rust backend in `src-tauri/src/`
-4. Space folder on disk, including `.md` files and `.glyph/` derived data
+4. Space folder on disk, including `.md` files and `.qwert/` derived data
 
 The frontend never reads the workspace filesystem directly for core app data. It calls the typed `invoke()` helper in `src/lib/tauri.ts`. Rust receives those commands, checks the active space, validates relative paths, performs filesystem or SQLite work, and emits events back to the UI.
 
@@ -29,8 +29,8 @@ src/lib/tauri.ts typed command map
 Tauri command handlers in src-tauri/src/lib.rs
   |
   +--> space files: markdown, attachments, folders
-  +--> .glyph/glyph.sqlite derived index
-  +--> .glyph/databases.json workspace database definitions
+  +--> .qwert/qwert.sqlite derived index
+  +--> .qwert/databases.json workspace database definitions
   +--> app config: settings, AI profiles, license, update state
 ```
 
@@ -39,7 +39,7 @@ Tauri command handlers in src-tauri/src/lib.rs
 Read the docs in this order when you are onboarding or changing a cross-cutting feature:
 
 1. `01-system-overview.md`: the boundary map and change rules.
-2. `02-spaces-storage-filesystem.md`: spaces, `.glyph/`, path validation, file events.
+2. `02-spaces-storage-filesystem.md`: spaces, `.qwert/`, path validation, file events.
 3. `03-frontend-shell-state.md`: providers, shell state, tabs, command routing, prefetch.
 4. `04-ipc-and-native-runtime.md`: typed IPC, command registration, menus, windows.
 5. `05-editor-markdown-autosave.md`: TipTap, Markdown serialization, autosave, conflicts.
@@ -97,14 +97,14 @@ The Rust backend owns durable operations and native integration:
 
 The selected space folder contains user-owned content. Markdown notes are first-class files. Attachments and other files can live beside notes.
 
-Glyph stores app metadata under `.glyph/` in the space:
+QWERT stores app metadata under `.qwert/` in the space:
 
-- `.glyph/glyph.sqlite`: derived SQLite index
-- `.glyph/databases.json`: workspace database definitions and status colors
-- `.glyph/cache/ai/`: per-run AI audit JSON
-- `.glyph/Glyph/ai_history/`: AI chat history records
-- `.glyph/Glyph/ai_secrets.json`: per-space AI API keys
-- `.glyph/cache/`: cache material
+- `.qwert/qwert.sqlite`: derived SQLite index
+- `.qwert/databases.json`: workspace database definitions and status colors
+- `.qwert/cache/ai/`: per-run AI audit JSON
+- `.qwert/QWERT/ai_history/`: AI chat history records
+- `.qwert/QWERT/ai_secrets.json`: per-space AI API keys
+- `.qwert/cache/`: cache material
 
 App-level preferences that do not belong to a single space live in Tauri app config through plugins or Rust app config paths.
 
@@ -113,7 +113,7 @@ App-level preferences that do not belong to a single space live in Tauri app con
 ### Open a Space
 
 1. React calls `space_open` or `space_create` from `SpaceContext`.
-2. Rust canonicalizes the folder and creates or opens Glyph metadata.
+2. Rust canonicalizes the folder and creates or opens QWERT metadata.
 3. Rust stores the active root in `SpaceState`.
 4. Rust resets the index schema cache.
 5. Rust installs a recursive notes watcher.
@@ -136,7 +136,7 @@ See `05-editor-markdown-autosave.md`.
 ### Query Notes
 
 1. The UI calls search, all-docs, calendar, tags, graph, database, or task commands.
-2. Rust opens `.glyph/glyph.sqlite`.
+2. Rust opens `.qwert/qwert.sqlite`.
 3. Rust queries derived rows generated from Markdown content.
 4. If the result needs note content, Rust reads the backing note file after validating the path.
 
@@ -149,7 +149,7 @@ See `06-index-search-graph-tasks.md` and `07-databases-frontmatter.md`.
 3. Rust chooses a native provider runtime or Rig runtime based on the selected profile.
 4. Rust emits `ai:chunk`, `ai:tool`, `ai:status`, `ai:done`, and `ai:error`.
 5. React streams the assistant response and tool timeline.
-6. Rust writes per-run audit JSON under `.glyph/cache/ai/` and chat history under `.glyph/Glyph/ai_history/`.
+6. Rust writes per-run audit JSON under `.qwert/cache/ai/` and chat history under `.qwert/QWERT/ai_history/`.
 
 See `08-ai-runtime-tools-history.md`.
 
@@ -158,7 +158,7 @@ See `08-ai-runtime-tools-history.md`.
 Use these rules when changing the architecture:
 
 - Keep the active space as the root of user data. Do not add a second source of truth for notes.
-- Treat `.glyph/glyph.sqlite` as derived. Rebuild it when the parser or schema behavior changes.
+- Treat `.qwert/qwert.sqlite` as derived. Rebuild it when the parser or schema behavior changes.
 - Route durable filesystem writes through Rust. The frontend may use Tauri plugins for dialogs and opening external files, but note content should go through `space_fs`.
 - Use `paths::join_under()` and hidden-path checks for any space-relative path.
 - Use `io_atomic::write_atomic()` for durable writes unless a create-new operation needs `OpenOptions::create_new`.

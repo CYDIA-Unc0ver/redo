@@ -1,7 +1,7 @@
 use serde::Serialize;
 use std::path::{Path, PathBuf};
 
-use crate::{glyph_paths, io_atomic, paths};
+use crate::{qwert_paths, io_atomic, paths};
 
 #[derive(Serialize)]
 pub struct SpaceInfo {
@@ -11,13 +11,13 @@ pub struct SpaceInfo {
 }
 
 pub const VAULT_SCHEMA_VERSION: u32 = 1;
-const ONBOARDING_NOTE_PATH: &str = "Welcome to Glyph.md";
+const ONBOARDING_NOTE_PATH: &str = "Welcome to QWERT.md";
 const ONBOARDING_MARKER_NAME: &str = "onboarding-note-v2.json";
-const ONBOARDING_NOTE_CONTENT: &str = r#"# Welcome to Glyph
+const ONBOARDING_NOTE_CONTENT: &str = r#"# Welcome to QWERT
 
-Is Glyph the first notes app you have ever opened? Almost certainly not. Is it going to claim that writing things down was invented five minutes ago? Also no.
+Is QWERT the first notes app you have ever opened? Almost certainly not. Is it going to claim that writing things down was invented five minutes ago? Also no.
 
-Glyph is a local-first desktop space for notes, collections, previews, and AI-assisted thinking. The important part is boring in the best way: your notes are plain Markdown files in the folder you chose. Use the same notes in Obsidian, VS Code, Typora, iA Writer, Logseq, or any app that understands Markdown.
+QWERT is a local-first desktop space for notes, collections, previews, and AI-assisted thinking. The important part is boring in the best way: your notes are plain Markdown files in the folder you chose. Use the same notes in Obsidian, VS Code, Typora, iA Writer, Logseq, or any app that understands Markdown.
 
 This note is fully editable. Try things here, make a mess, or delete it when it has done its job.
 
@@ -77,10 +77,10 @@ struct OnboardingMarker<'a> {
     welcome_note_path: &'a str,
 }
 
-pub fn ensure_glyph_dirs(root: &Path) -> Result<(), String> {
-    let _ = glyph_paths::ensure_glyph_dir(root)?;
-    let _ = glyph_paths::ensure_glyph_cache_dir(root)?;
-    let _ = glyph_paths::ensure_glyph_app_dir(root)?;
+pub fn ensure_qwert_dirs(root: &Path) -> Result<(), String> {
+    let _ = qwert_paths::ensure_qwert_dir(root)?;
+    let _ = qwert_paths::ensure_qwert_cache_dir(root)?;
+    let _ = qwert_paths::ensure_qwert_app_dir(root)?;
     Ok(())
 }
 
@@ -93,7 +93,7 @@ pub fn canonicalize_dir(path: &Path) -> Result<PathBuf, String> {
 }
 
 pub fn create_or_open_impl(root: &Path) -> Result<SpaceInfo, String> {
-    ensure_glyph_dirs(root)?;
+    ensure_qwert_dirs(root)?;
     let _ = cleanup_tmp_files(root);
     let onboarding_note_path = ensure_onboarding_note_for_launch(root);
     Ok(SpaceInfo {
@@ -114,7 +114,7 @@ pub fn ensure_onboarding_note_for_command(root: &Path) -> Result<String, String>
 }
 
 fn ensure_onboarding_note_for_launch(root: &Path) -> Option<String> {
-    let marker = glyph_paths::glyph_app_dir(root)
+    let marker = qwert_paths::qwert_app_dir(root)
         .ok()?
         .join(ONBOARDING_MARKER_NAME);
     if marker.exists() {
@@ -136,7 +136,7 @@ fn ensure_onboarding_note_file(root: &Path) -> Result<(), String> {
 }
 
 fn write_onboarding_marker(root: &Path) {
-    let marker = match glyph_paths::glyph_app_dir(root) {
+    let marker = match qwert_paths::qwert_app_dir(root) {
         Ok(dir) => dir.join(ONBOARDING_MARKER_NAME),
         Err(_) => return,
     };
@@ -188,7 +188,7 @@ fn cleanup_tmp_files(root: &Path) -> Result<(), String> {
         Ok(())
     }
 
-    if let Ok(dir) = glyph_paths::glyph_dir(root) {
+    if let Ok(dir) = qwert_paths::qwert_dir(root) {
         if dir.is_dir() {
             let _ = recurse(&dir);
         }

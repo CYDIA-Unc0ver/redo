@@ -1,47 +1,47 @@
 use crate::paths;
 use std::path::{Path, PathBuf};
 
-pub const GLYPH_DIR_NAME: &str = ".glyph";
-pub const GLYPH_DB_NAME: &str = "glyph.sqlite";
-pub const GLYPH_APP_DIR_NAME: &str = "Glyph";
+pub const QWERT_DIR_NAME: &str = ".qwert";
+pub const QWERT_DB_NAME: &str = "qwert.sqlite";
+pub const QWERT_APP_DIR_NAME: &str = "QWERT";
 pub const AI_HISTORY_DIR_NAME: &str = "ai_history";
 
-pub fn glyph_dir(space_root: &Path) -> Result<PathBuf, String> {
-    paths::join_under(space_root, Path::new(GLYPH_DIR_NAME))
+pub fn qwert_dir(space_root: &Path) -> Result<PathBuf, String> {
+    paths::join_under(space_root, Path::new(QWERT_DIR_NAME))
 }
 
-pub fn glyph_db_path(space_root: &Path) -> Result<PathBuf, String> {
-    Ok(glyph_dir(space_root)?.join(GLYPH_DB_NAME))
+pub fn qwert_db_path(space_root: &Path) -> Result<PathBuf, String> {
+    Ok(qwert_dir(space_root)?.join(QWERT_DB_NAME))
 }
 
-pub fn glyph_cache_dir(space_root: &Path) -> Result<PathBuf, String> {
-    Ok(glyph_dir(space_root)?.join("cache"))
+pub fn qwert_cache_dir(space_root: &Path) -> Result<PathBuf, String> {
+    Ok(qwert_dir(space_root)?.join("cache"))
 }
 
-pub fn glyph_app_dir(space_root: &Path) -> Result<PathBuf, String> {
-    let base = glyph_dir(space_root)?;
-    paths::join_under(&base, Path::new(GLYPH_APP_DIR_NAME))
+pub fn qwert_app_dir(space_root: &Path) -> Result<PathBuf, String> {
+    let base = qwert_dir(space_root)?;
+    paths::join_under(&base, Path::new(QWERT_APP_DIR_NAME))
 }
 
 pub fn ai_history_dir(space_root: &Path) -> Result<PathBuf, String> {
-    let base = glyph_app_dir(space_root)?;
+    let base = qwert_app_dir(space_root)?;
     paths::join_under(&base, Path::new(AI_HISTORY_DIR_NAME))
 }
 
-pub fn ensure_glyph_dir(space_root: &Path) -> Result<PathBuf, String> {
-    let dir = glyph_dir(space_root)?;
+pub fn ensure_qwert_dir(space_root: &Path) -> Result<PathBuf, String> {
+    let dir = qwert_dir(space_root)?;
     std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir)
 }
 
-pub fn ensure_glyph_cache_dir(space_root: &Path) -> Result<PathBuf, String> {
-    let dir = glyph_cache_dir(space_root)?;
+pub fn ensure_qwert_cache_dir(space_root: &Path) -> Result<PathBuf, String> {
+    let dir = qwert_cache_dir(space_root)?;
     std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir)
 }
 
-pub fn ensure_glyph_app_dir(space_root: &Path) -> Result<PathBuf, String> {
-    let dir = glyph_app_dir(space_root)?;
+pub fn ensure_qwert_app_dir(space_root: &Path) -> Result<PathBuf, String> {
+    let dir = qwert_app_dir(space_root)?;
     std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     Ok(dir)
 }

@@ -1,6 +1,6 @@
 # Workspace Databases and Frontmatter
 
-Glyph databases are saved views over notes. A database definition lives in `.glyph/databases.json`; each row is still a Markdown note. Editable cells write back to YAML frontmatter, then the note gets reindexed.
+QWERT databases are saved views over notes. A database definition lives in `.qwert/databases.json`; each row is still a Markdown note. Editable cells write back to YAML frontmatter, then the note gets reindexed.
 
 This design keeps databases offline and file-based. It also means database behavior depends on the index staying fresh.
 
@@ -9,7 +9,7 @@ This design keeps databases offline and file-based. It also means database behav
 Backend:
 
 - `src-tauri/src/databases/types.rs`: database document, view, column, filter, row types
-- `src-tauri/src/databases/store.rs`: `.glyph/databases.json` load/save and default view helpers
+- `src-tauri/src/databases/store.rs`: `.qwert/databases.json` load/save and default view helpers
 - `src-tauri/src/databases/query.rs`: source selection, filtering, sorting, row hydration
 - `src-tauri/src/databases/commands.rs`: Tauri commands and frontmatter mutations
 - `src-tauri/src/index/properties.rs`: indexed frontmatter property rows
@@ -34,7 +34,7 @@ Frontend:
 The database store lives at:
 
 ```text
-.glyph/databases.json
+.qwert/databases.json
 ```
 
 The store shape:
@@ -152,7 +152,7 @@ Property kinds include:
 
 `load_store()`:
 
-1. Reads `.glyph/databases.json`.
+1. Reads `.qwert/databases.json`.
 2. Parses JSON into `DatabaseStore`.
 3. Returns `default_store()` if the file does not exist.
 
@@ -322,7 +322,7 @@ Reserved frontmatter keys cannot be used for new-note defaults:
 
 - `created`
 - `folder`
-- `glyph`
+- `qwert`
 - `id`
 - `linked_notes`
 - `path`
@@ -401,7 +401,7 @@ Available properties come from the index, not from the database store alone. If 
 
 When changing databases:
 
-1. Decide whether the data belongs in note frontmatter or `.glyph/databases.json`.
+1. Decide whether the data belongs in note frontmatter or `.qwert/databases.json`.
 2. Update Rust types and TypeScript IPC types together.
 3. Use a hard cutover for store shape changes. Do not add version fields or load-time migration.
 4. Keep row content derived from Markdown and index rows.

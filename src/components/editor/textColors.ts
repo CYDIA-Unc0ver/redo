@@ -19,49 +19,49 @@ export const EDITOR_TEXT_COLORS = [
 	{
 		id: "gray",
 		label: "Gray",
-		cssVar: "--glyph-inline-color-gray",
+		cssVar: "--qwert-inline-color-gray",
 		fallbackHex: "#626f86",
 	},
 	{
 		id: "brown",
 		label: "Brown",
-		cssVar: "--glyph-inline-color-brown",
+		cssVar: "--qwert-inline-color-brown",
 		fallbackHex: "#9a6c3f",
 	},
 	{
 		id: "orange",
 		label: "Orange",
-		cssVar: "--glyph-inline-color-orange",
+		cssVar: "--qwert-inline-color-orange",
 		fallbackHex: "#c25100",
 	},
 	{
 		id: "yellow",
 		label: "Yellow",
-		cssVar: "--glyph-inline-color-yellow",
+		cssVar: "--qwert-inline-color-yellow",
 		fallbackHex: "#8f6b00",
 	},
 	{
 		id: "green",
 		label: "Green",
-		cssVar: "--glyph-inline-color-green",
+		cssVar: "--qwert-inline-color-green",
 		fallbackHex: "#216e4e",
 	},
 	{
 		id: "blue",
 		label: "Blue",
-		cssVar: "--glyph-inline-color-blue",
+		cssVar: "--qwert-inline-color-blue",
 		fallbackHex: "#0c66e4",
 	},
 	{
 		id: "purple",
 		label: "Purple",
-		cssVar: "--glyph-inline-color-purple",
+		cssVar: "--qwert-inline-color-purple",
 		fallbackHex: "#7e5bef",
 	},
 	{
 		id: "red",
 		label: "Red",
-		cssVar: "--glyph-inline-color-red",
+		cssVar: "--qwert-inline-color-red",
 		fallbackHex: "#c9372c",
 	},
 ] as const satisfies readonly EditorTextColorOption[];
@@ -87,11 +87,11 @@ export function getEditorTextColorStyle(color: EditorTextColor) {
 }
 
 export function getEditorTextColorMarkdownOpenTag(color: EditorTextColor) {
-	return `<span data-glyph-color="${color}" style="${getEditorTextColorStyle(color)}">`;
+	return `<span data-qwert-color="${color}" style="${getEditorTextColorStyle(color)}">`;
 }
 
 export function getEditorTextColorBridgeOpenToken(color: EditorTextColor) {
-	return `{{glyph-color:${color}}}`;
+	return `{{qwert-color:${color}}}`;
 }
 
-export const EDITOR_TEXT_COLOR_BRIDGE_CLOSE_TOKEN = "{{/glyph-color}}";
+export const EDITOR_TEXT_COLOR_BRIDGE_CLOSE_TOKEN = "{{/qwert-color}}";

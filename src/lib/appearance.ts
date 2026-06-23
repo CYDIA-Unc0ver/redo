@@ -50,8 +50,8 @@ const DERIVED_UI_FONT_SIZE_PROPERTIES = [
 ] as const;
 
 const UI_ACCENT_COLORS: Record<Exclude<UiAccent, "neutral">, string> = {
-	"glyph-orange": "#de7356",
-	"glyph-red": "#e84d42",
+	"qwert-orange": "#de7356",
+	"qwert-red": "#e84d42",
 	cerulean: "#0081a7",
 	"tropical-teal": "#00afb9",
 };
@@ -183,14 +183,14 @@ export function applyUiAccent(
 	const root = document.documentElement;
 	if (!isUiAccent(accent) || accent === "neutral") {
 		root.style.removeProperty("--accent-color");
-		root.style.removeProperty("--glyph-user-accent");
-		root.style.removeProperty("--glyph-user-accent-hover");
+		root.style.removeProperty("--qwert-user-accent");
+		root.style.removeProperty("--qwert-user-accent-hover");
 		return;
 	}
 	const accentColor = UI_ACCENT_COLORS[accent];
-	root.style.setProperty("--glyph-user-accent", accentColor);
+	root.style.setProperty("--qwert-user-accent", accentColor);
 	root.style.setProperty(
-		"--glyph-user-accent-hover",
+		"--qwert-user-accent-hover",
 		shiftHexColor(accentColor, -18),
 	);
 }

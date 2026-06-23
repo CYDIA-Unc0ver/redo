@@ -1,8 +1,8 @@
 import type { UiAccent } from "../../lib/settings";
 
 const ACCENT_COLOR_MAP: Record<Exclude<UiAccent, "neutral">, string> = {
-	"glyph-orange": "#de7356",
-	"glyph-red": "#e84d42",
+	"qwert-orange": "#de7356",
+	"qwert-red": "#e84d42",
 	cerulean: "#0081a7",
 	"tropical-teal": "#00afb9",
 };
@@ -14,14 +14,14 @@ export const ACCENT_OPTIONS: Array<{
 }> = [
 	{ id: "neutral", label: "Neutral", color: "var(--text-primary)" },
 	{
-		id: "glyph-orange",
+		id: "qwert-orange",
 		label: "Orange",
-		color: ACCENT_COLOR_MAP["glyph-orange"],
+		color: ACCENT_COLOR_MAP["qwert-orange"],
 	},
 	{
-		id: "glyph-red",
-		label: "Glyph Red",
-		color: ACCENT_COLOR_MAP["glyph-red"],
+		id: "qwert-red",
+		label: "QWERT Red",
+		color: ACCENT_COLOR_MAP["qwert-red"],
 	},
 	{ id: "cerulean", label: "Cerulean", color: ACCENT_COLOR_MAP.cerulean },
 	{

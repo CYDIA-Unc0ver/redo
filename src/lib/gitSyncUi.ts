@@ -85,13 +85,13 @@ export function getGitSyncConnectionHelp(
 		return "Install Git to use Git Sync in repo-backed spaces.";
 	}
 	if (status.unsupported_parent_repo) {
-		return "This space is inside a larger Git repository. Glyph only supports repos rooted exactly at the opened space.";
+		return "This space is inside a larger Git repository. QWERT only supports repos rooted exactly at the opened space.";
 	}
 	if (configured) {
-		return "Glyph automatically uses the Git repository found at this space root.";
+		return "QWERT automatically uses the Git repository found at this space root.";
 	}
 	if (status.repo_detected) {
-		return "Glyph found a repository here, but it still needs an origin remote before sync can start.";
+		return "QWERT found a repository here, but it still needs an origin remote before sync can start.";
 	}
 	return "Git Sync becomes available automatically when the opened space already contains a .git repository at its root.";
 }
@@ -130,7 +130,7 @@ export function getGitSyncPresentation(
 			triggerLabel: "Missing",
 			headline: "Install Git to enable sync",
 			supportingCopy:
-				"Glyph uses your system Git install and existing credentials.",
+				"QWERT uses your system Git install and existing credentials.",
 			statusBadge: "Missing",
 		};
 	}
@@ -142,7 +142,7 @@ export function getGitSyncPresentation(
 			triggerLabel: "Unsupported",
 			headline: "This space sits inside another repo",
 			supportingCopy:
-				"Glyph only supports repositories rooted exactly at the opened space.",
+				"QWERT only supports repositories rooted exactly at the opened space.",
 			statusBadge: "Unsupported",
 		};
 	}
@@ -154,7 +154,7 @@ export function getGitSyncPresentation(
 			triggerLabel: "Syncing",
 			headline: status.message ?? "Syncing this space",
 			supportingCopy:
-				"Glyph is running Git in the background. You can keep working while it finishes.",
+				"QWERT is running Git in the background. You can keep working while it finishes.",
 			statusBadge: "Syncing",
 			canSyncNow: false,
 		};
@@ -181,7 +181,7 @@ export function getGitSyncPresentation(
 			triggerLabel: "Attention",
 			headline: "Git Sync needs attention",
 			supportingCopy:
-				"Glyph found something that needs to be resolved before the next safe sync.",
+				"QWERT found something that needs to be resolved before the next safe sync.",
 			statusBadge: "Attention",
 			canSyncNow: false,
 		};
@@ -208,7 +208,7 @@ export function getGitSyncPresentation(
 			triggerLabel: "Repo found",
 			headline: "Repository detected, but not ready to sync",
 			supportingCopy:
-				"Add an origin remote to this repo and Glyph will start tracking it automatically.",
+				"Add an origin remote to this repo and QWERT will start tracking it automatically.",
 			statusBadge: "Repo found",
 		};
 	}

@@ -75,7 +75,7 @@ export function AiCodexAccountSection({
 		>
 			<SettingsRow
 				label="Identity"
-				description="The connected account Glyph is currently using for Codex."
+				description="The connected account QWERT is currently using for Codex."
 				interactive={false}
 			>
 				<div className="settingsInline">

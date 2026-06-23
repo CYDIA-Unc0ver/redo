@@ -20,20 +20,20 @@ describe("wikiLinkMarkdownBridge", () => {
 
 	it("bridges supported colored spans to internal editor tokens and back", () => {
 		const md =
-			'Use <span data-glyph-color="blue" style="color: var(--glyph-inline-color-blue)">**focus**</span> here';
+			'Use <span data-qwert-color="blue" style="color: var(--qwert-inline-color-blue)">**focus**</span> here';
 		const preprocessed = preprocessMarkdownForEditor(md);
 		expect(preprocessed).toBe(
-			"Use {{glyph-color:blue}}**focus**{{/glyph-color}} here",
+			"Use {{qwert-color:blue}}**focus**{{/qwert-color}} here",
 		);
 		expect(postprocessMarkdownFromEditor(preprocessed)).toBe(md);
 	});
 
 	it("bridges supported highlighted marks to internal editor tokens and back", () => {
 		const md =
-			'Use <mark data-glyph-highlight="yellow" style="background-color: var(--glyph-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">**focus**</mark> here';
+			'Use <mark data-qwert-highlight="yellow" style="background-color: var(--qwert-inline-highlight-yellow, rgba(240, 180, 41, 0.26))">**focus**</mark> here';
 		const preprocessed = preprocessMarkdownForEditor(md);
 		expect(preprocessed).toBe(
-			"Use {{glyph-highlight:yellow}}**focus**{{/glyph-highlight}} here",
+			"Use {{qwert-highlight:yellow}}**focus**{{/qwert-highlight}} here",
 		);
 		expect(postprocessMarkdownFromEditor(preprocessed)).toBe(md);
 	});

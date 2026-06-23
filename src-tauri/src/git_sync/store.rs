@@ -1,6 +1,6 @@
 use std::path::{Path, PathBuf};
 
-use crate::glyph_paths::ensure_glyph_dir;
+use crate::qwert_paths::ensure_qwert_dir;
 use crate::io_atomic;
 
 use super::types::{GitSyncConfig, GitSyncStore, GIT_SYNC_STORE_VERSION};
@@ -8,7 +8,7 @@ use super::types::{GitSyncConfig, GitSyncStore, GIT_SYNC_STORE_VERSION};
 const GIT_SYNC_STORE_FILE: &str = "git_sync.json";
 
 fn store_path(space_root: &Path) -> Result<PathBuf, String> {
-    Ok(ensure_glyph_dir(space_root)?.join(GIT_SYNC_STORE_FILE))
+    Ok(ensure_qwert_dir(space_root)?.join(GIT_SYNC_STORE_FILE))
 }
 
 pub fn load_store(space_root: &Path) -> Result<Option<GitSyncConfig>, String> {
@@ -62,7 +62,7 @@ mod tests {
 
     fn temp_root() -> PathBuf {
         let root =
-            std::env::temp_dir().join(format!("glyph-git-sync-store-{}", uuid::Uuid::new_v4()));
+            std::env::temp_dir().join(format!("qwert-git-sync-store-{}", uuid::Uuid::new_v4()));
         std::fs::create_dir_all(&root).expect("create temp dir");
         root
     }
@@ -107,9 +107,9 @@ mod tests {
                 GitSyncRepoMode::ManagedNewRepo,
             ),
         };
-        let glyph_dir = root.join(".glyph");
-        std::fs::create_dir_all(&glyph_dir).expect("glyph dir");
-        let path = glyph_dir.join("git_sync.json");
+        let qwert_dir = root.join(".qwert");
+        std::fs::create_dir_all(&qwert_dir).expect("qwert dir");
+        let path = qwert_dir.join("git_sync.json");
         let bytes = serde_json::to_vec_pretty(&store).expect("serialize store");
         std::fs::write(path, bytes).expect("write store");
 

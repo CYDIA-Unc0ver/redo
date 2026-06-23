@@ -1,6 +1,6 @@
 # SQLite Index, Search, Graph, and Checklists
 
-Glyph keeps Markdown files as the durable source of truth. The SQLite database under `.glyph/glyph.sqlite` is a derived index. It accelerates search, tags, backlinks, relationships, database rows, and checklist progress summaries.
+QWERT keeps Markdown files as the durable source of truth. The SQLite database under `.qwert/qwert.sqlite` is a derived index. It accelerates search, tags, backlinks, relationships, database rows, and checklist progress summaries.
 
 If the index is wrong, rebuild it from Markdown. Do not treat SQLite rows as the authoritative note content.
 
@@ -37,7 +37,7 @@ Frontend consumers:
 `db_path(space_root)` returns:
 
 ```text
-.glyph/glyph.sqlite
+.qwert/qwert.sqlite
 ```
 
 `open_db()` creates the parent directory, opens the database, configures WAL, ensures schema, and runs migrations. It caches schema setup by database path so repeated commands do not run schema checks on every open.
@@ -194,7 +194,7 @@ Delete and rename commands call this function when markdown paths disappear or m
 
 ## Search
 
-Glyph exposes three search commands:
+QWERT exposes three search commands:
 
 - `search`: simple text search through `hybrid_search()`
 - `search_advanced`: structured request with query, tags, people, title-only, tag-only, limit

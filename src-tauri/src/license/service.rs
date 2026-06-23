@@ -118,7 +118,7 @@ pub async fn verify_license_key(license_key: &str) -> Result<(), LicenseServiceE
 
     let message = payload
         .message
-        .unwrap_or_else(|| "That license key is invalid for Glyph.".to_string());
+        .unwrap_or_else(|| "That license key is invalid for QWERT.".to_string());
 
     let code = if status.is_client_error() {
         LicenseServiceErrorCode::InvalidLicense
